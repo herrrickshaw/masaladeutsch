@@ -29,6 +29,30 @@
     } catch (e) { /* an ad failure must never break the index */ }
   }
   var BASE = 'https://masaladeutsch.blogspot.com', n = 0;
+
+  /* ---- BreadcrumbList JSON-LD, synchronous, no network round-trip -------
+     Blogger's own auto-schema covers BlogPosting/WebSite/Person but never
+     BreadcrumbList. Runs once per page load, independent of the label-feed
+     jsonp calls below so it never waits on (or breaks from) a network hop.
+     Home -> All Articles index -> this post's own title. */
+  try {
+    if (location.pathname !== '/2026/08/article-index-start-here.html') {
+      var pageTitle = (document.title || '').replace(/\s*[–—-]\s*Masala Deutsch\s*$/i, '').trim();
+      var crumbs = {
+        '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+        'itemListElement': [
+          { '@type': 'ListItem', 'position': 1, 'name': 'Masala Deutsch', 'item': BASE + '/' },
+          { '@type': 'ListItem', 'position': 2, 'name': 'All Articles (Index)',
+            'item': BASE + '/2026/08/article-index-start-here.html' },
+          { '@type': 'ListItem', 'position': 3, 'name': pageTitle || document.title, 'item': location.href }
+        ]
+      };
+      var ld = document.createElement('script');
+      ld.type = 'application/ld+json';
+      ld.text = JSON.stringify(crumbs);
+      document.head.appendChild(ld);
+    }
+  } catch (e) { /* a schema failure must never break the index */ }
   window.gsIdxCb = window.gsIdxCb || {};
   function jsonp(url, cb) {
     var name = 'c' + (n++); window.gsIdxCb[name] = cb;
