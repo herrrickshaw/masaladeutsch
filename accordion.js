@@ -108,7 +108,9 @@
     ['Lifelong Stovetop Moka Pot / Espresso Maker', 'Lifelong', 'B0F74B2HRH',
      'https://m.media-amazon.com/images/I/61tDjFKl7xL._SX679_.jpg'],
     ['Saravana Degree Coffee Powder — Chikmagaluru filter coffee, 250 g', 'Saravana', 'B0F5XYKJNK',
-     'https://m.media-amazon.com/images/I/61y8EIhYlAL._SX679_.jpg']
+     'https://m.media-amazon.com/images/I/61y8EIhYlAL._SX679_.jpg'],
+    ['Sweet Karam Coffee ABC Milk Mix — apple, beetroot & carrot, 500 g', 'Sweet Karam Coffee', 'B0FC5T4W8Q',
+     'https://m.media-amazon.com/images/I/71eBPMQxu2L._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
