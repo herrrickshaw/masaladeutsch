@@ -120,7 +120,9 @@
     ['777 Nannari Sharbat, 700 ml pack of 2', '777', 'B0H4G7LF9P',
      'https://m.media-amazon.com/images/I/61aEmrLQlSL._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg'],
     ['The Dip & Mindset — two-book set (revised)', 'Seth Godin & Carol Dweck', 'B0BLVVJ18D',
-     'https://m.media-amazon.com/images/I/71UYOzNtbTL._SX445_.jpg']
+     'https://m.media-amazon.com/images/I/71UYOzNtbTL._SX445_.jpg'],
+    ['Haldiram\u2019s Nagpur Orange Burfee, 500 g', 'Haldiram\u2019s', 'B0BGPR43WQ',
+     'https://m.media-amazon.com/images/I/71r0frXkPgL._SX679_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
@@ -130,6 +132,11 @@
       var h = document.createElement('p');
       h.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#8a4b08;margin:0 0 .6rem';
       h.textContent = 'From the author\u2019s shelf';
+      var all = document.createElement('a');
+      all.href = 'https://masaladeutsch.blogspot.com/2026/08/the-masala-deutsch-shop-books-things.html';
+      all.textContent = ' browse the full shop \u2192';
+      all.style.cssText = 'font-weight:600;text-transform:none;letter-spacing:0;color:#2251FF;text-decoration:none;margin-left:.4rem';
+      h.appendChild(all);
       box.appendChild(h);
       var row = document.createElement('div');
       row.style.cssText = 'display:flex;flex-wrap:wrap;gap:1rem';
