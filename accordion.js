@@ -84,7 +84,7 @@
      the Associates disclosure line. Empty tag = nothing renders anywhere. */
   var AFFILIATE_TAG = 'herpetithabib-21';
   var BOOKS = {
-    'Energy & Fuels': [['The Prize: The Epic Quest for Oil, Money and Power', 'Daniel Yergin'],
+    'Energy & Fuels': [['The Prize: The Epic Quest for Oil, Money and Power', 'Daniel Yergin', '1439110123'],
                        ['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
     'Gas & LNG':      [['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
     'Trade & Tariffs':[['India Transformed: 25 Years of Economic Reforms', 'Rakesh Mohan'],
@@ -122,7 +122,9 @@
         for (var pi = 0; pi < picks.length; pi++) {
           var pr = document.createElement('p'); pr.style.cssText = 'margin:.15rem 0;font-size:.9rem';
           var aa = document.createElement('a'); aa.rel = 'nofollow sponsored noopener'; aa.target = '_blank';
-          aa.href = 'https://www.amazon.in/s?k=' + encodeURIComponent(picks[pi][0] + ' ' + picks[pi][1]) + '&tag=' + AFFILIATE_TAG;
+          aa.href = picks[pi][2]
+            ? 'https://www.amazon.in/dp/' + picks[pi][2] + '?tag=' + AFFILIATE_TAG
+            : 'https://www.amazon.in/s?k=' + encodeURIComponent(picks[pi][0] + ' ' + picks[pi][1]) + '&tag=' + AFFILIATE_TAG;
           aa.textContent = picks[pi][0];
           pr.appendChild(aa);
           var au = document.createElement('span'); au.style.cssText = 'color:#595959;font-size:.8rem';
