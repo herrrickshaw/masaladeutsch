@@ -74,6 +74,70 @@
         if (!es.length) ul.innerHTML = '<li>No posts carry this label yet.</li>';
       });
   }
+
+  /* ---- Amazon affiliate "Further reading", dormant until AFFILIATE_TAG is
+     set to the Associates tracking id (e.g. "xxxx-21"). Books are matched to
+     the post's own topic labels (read from the theme's .gs-topics links), and
+     links are TAGGED SEARCH urls by exact title, never hardcoded ASINs -- a
+     stale or mistyped ASIN would send readers to the wrong product under the
+     site's name; a title search cannot. Renders only on the blog, always with
+     the Associates disclosure line. Empty tag = nothing renders anywhere. */
+  var AFFILIATE_TAG = '';
+  var BOOKS = {
+    'Energy & Fuels': [['The Prize: The Epic Quest for Oil, Money and Power', 'Daniel Yergin'],
+                       ['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
+    'Gas & LNG':      [['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
+    'Trade & Tariffs':[['India Transformed: 25 Years of Economic Reforms', 'Rakesh Mohan'],
+                       ['Backstage: The Story Behind India’s High Growth Years', 'Montek Singh Ahluwalia']],
+    'Import Substitution': [['India Transformed: 25 Years of Economic Reforms', 'Rakesh Mohan']],
+    'Industrial Policy': [['Breaking the Mould: Reimagining India’s Economic Future', 'Raghuram Rajan Rohit Lamba']],
+    'Markets & Finance': [['I Do What I Do', 'Raghuram Rajan'],
+                          ['Overdraft: Saving the Indian Saver', 'Urjit Patel']],
+    'Prices & Inflation': [['I Do What I Do', 'Raghuram Rajan']],
+    'Agriculture & Fertilisers': [['Everybody Loves a Good Drought', 'P. Sainath']],
+    'Climate & Carbon': [['How the World Really Works', 'Vaclav Smil']],
+    'Mobility & EV':  [['Energy and Civilization: A History', 'Vaclav Smil']],
+    'AI Tools':       [['Co-Intelligence: Living and Working with AI', 'Ethan Mollick']]
+  };
+  if (AFFILIATE_TAG && /\.blogspot\.com$/.test(location.hostname)) {
+    try {
+      var labels = [], las = document.querySelectorAll('.gs-topics a[rel="tag"]');
+      for (var li = 0; li < las.length; li++) labels.push(las[li].textContent.trim());
+      var picks = [], seen = {};
+      for (var bi = 0; bi < labels.length; bi++) {
+        var bs = BOOKS[labels[bi]] || [];
+        for (var bj = 0; bj < bs.length; bj++) {
+          var kk = bs[bj][0];
+          if (!seen[kk]) { seen[kk] = 1; picks.push(bs[bj]); }
+        }
+      }
+      picks = picks.slice(0, 3);
+      if (picks.length) {
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'margin:0 0 1.2rem;padding:.9rem 1rem;background:#F4F7FB;border-left:3px solid #8a4b08';
+        var hh = document.createElement('p');
+        hh.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#8a4b08;margin:0 0 .4rem';
+        hh.textContent = 'Further reading on this topic';
+        wrap.appendChild(hh);
+        for (var pi = 0; pi < picks.length; pi++) {
+          var pr = document.createElement('p'); pr.style.cssText = 'margin:.15rem 0;font-size:.9rem';
+          var aa = document.createElement('a'); aa.rel = 'nofollow sponsored noopener'; aa.target = '_blank';
+          aa.href = 'https://www.amazon.in/s?k=' + encodeURIComponent(picks[pi][0] + ' ' + picks[pi][1]) + '&tag=' + AFFILIATE_TAG;
+          aa.textContent = picks[pi][0];
+          pr.appendChild(aa);
+          var au = document.createElement('span'); au.style.cssText = 'color:#595959;font-size:.8rem';
+          au.textContent = ' — ' + picks[pi][1].replace(' Rohit Lamba', ' & Rohit Lamba');
+          pr.appendChild(au); wrap.appendChild(pr);
+        }
+        var dis = document.createElement('p');
+        dis.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;color:#8a8a8a;margin:.5rem 0 0';
+        dis.textContent = 'As an Amazon Associate, this site earns from qualifying purchases made through these links.';
+        wrap.appendChild(dis);
+        host.appendChild(wrap);
+      }
+    } catch (e) { /* an affiliate failure must never break the index */ }
+  }
+
   jsonp(BASE + '/feeds/posts/summary?alt=json-in-script&max-results=0', function (res) {
     if (!res) return;
     var cats = (res.feed.category || []).map(function (c) { return c.term; })
