@@ -85,16 +85,20 @@
   var AFFILIATE_TAG = 'herpetithabib-21';
   var BOOKS = {
     'Energy & Fuels': [['The Prize: The Epic Quest for Oil, Money and Power', 'Daniel Yergin', '1439110123'],
+                       ['Oil: A Beginner\u2019s Guide', 'Vaclav Smil', '1786072866'],
                        ['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
     'Gas & LNG':      [['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
     'Trade & Tariffs':[['Has China Won? The Chinese Challenge to American Primacy', 'Kishore Mahbubani', '1541768140'],
                        ['India Transformed: 25 Years of Economic Reforms', 'Rakesh Mohan'],
                        ['Backstage: The Story Behind India’s High Growth Years', 'Montek Singh Ahluwalia']],
-    'Import Substitution': [['India Transformed: 25 Years of Economic Reforms', 'Rakesh Mohan']],
-    'Industrial Policy': [['Breaking the Mould: Reimagining India’s Economic Future', 'Raghuram Rajan Rohit Lamba', '0143472771']],
+    'Import Substitution': [['Chip War: The Fight for the World\u2019s Most Critical Technology', 'Chris Miller', '1398504122'],
+                            ['India Transformed: 25 Years of Economic Reforms', 'Rakesh Mohan']],
+    'Industrial Policy': [['Accelerating India\u2019s Development: A State-Led Roadmap for Effective Governance', 'Karthik Muralidharan', '067009594X'],
+                          ['Breaking the Mould: Reimagining India’s Economic Future', 'Raghuram Rajan Rohit Lamba', '0143472771']],
     'Markets & Finance': [['I Do What I Do', 'Raghuram Rajan', 'B0BXD7LG75'],
                           ['Overdraft: Saving the Indian Saver', 'Urjit Patel']],
     'Prices & Inflation': [['Whole Numbers and Half Truths: What Data Can and Cannot Tell Us About Modern India', 'Rukmini S', '9391234674'],
+                           ['Factfulness: Ten Reasons We\u2019re Wrong About the World', 'Hans Rosling', '1473637465'],
                            ['100 Ways to See India', 'Surprises from the Data', '9369894470'],
                            ['I Do What I Do', 'Raghuram Rajan', 'B0BXD7LG75']],
     'Agriculture & Fertilisers': [['Everybody Loves a Good Drought', 'P. Sainath', '0140259848']],
@@ -122,7 +126,9 @@
     ['The Dip & Mindset — two-book set (revised)', 'Seth Godin & Carol Dweck', 'B0BLVVJ18D',
      'https://m.media-amazon.com/images/I/71UYOzNtbTL._SX445_.jpg'],
     ['Haldiram\u2019s Nagpur Orange Burfee, 500 g', 'Haldiram\u2019s', 'B0BGPR43WQ',
-     'https://m.media-amazon.com/images/I/71r0frXkPgL._SX679_.jpg']
+     'https://m.media-amazon.com/images/I/71r0frXkPgL._SX679_.jpg'],
+    ['The Argumentative Indian', 'Amartya Sen', '0141012110',
+     'https://m.media-amazon.com/images/I/81jz1oGFymL._SY522_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
