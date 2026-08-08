@@ -100,6 +100,12 @@
     'Mobility & EV':  [['Energy and Civilization: A History', 'Vaclav Smil', '0262536161']],
     'AI Tools':       [['Co-Intelligence: Living and Working with AI', 'Ethan Mollick', '0753560771']]
   };
+  /* Off-topic personal picks, shown on every post under their own honest
+     heading so they never masquerade as topic reading. */
+  var SHELF = [
+    ['Siddhartha', 'Hermann Hesse', '817234368X'],
+    ['Lifelong Stovetop Moka Pot / Espresso Maker', 'Lifelong', 'B0F74B2HRH']
+  ];
   if (AFFILIATE_TAG && /\.blogspot\.com$/.test(location.hostname)) {
     try {
       var labels = [], las = document.querySelectorAll('.gs-topics a[rel="tag"]');
@@ -113,24 +119,34 @@
         }
       }
       picks = picks.slice(0, 3);
-      if (picks.length) {
+      if (picks.length || SHELF.length) {
         var wrap = document.createElement('div');
         wrap.style.cssText = 'margin:0 0 1.2rem;padding:.9rem 1rem;background:#F4F7FB;border-left:3px solid #8a4b08';
         var hh = document.createElement('p');
         hh.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#8a4b08;margin:0 0 .4rem';
-        hh.textContent = 'Further reading on this topic';
-        wrap.appendChild(hh);
-        for (var pi = 0; pi < picks.length; pi++) {
+        function emitRow(item) {
           var pr = document.createElement('p'); pr.style.cssText = 'margin:.15rem 0;font-size:.9rem';
           var aa = document.createElement('a'); aa.rel = 'nofollow sponsored noopener'; aa.target = '_blank';
-          aa.href = picks[pi][2]
-            ? 'https://www.amazon.in/dp/' + picks[pi][2] + '?tag=' + AFFILIATE_TAG
-            : 'https://www.amazon.in/s?k=' + encodeURIComponent(picks[pi][0] + ' ' + picks[pi][1]) + '&tag=' + AFFILIATE_TAG;
-          aa.textContent = picks[pi][0];
+          aa.href = item[2]
+            ? 'https://www.amazon.in/dp/' + item[2] + '?tag=' + AFFILIATE_TAG
+            : 'https://www.amazon.in/s?k=' + encodeURIComponent(item[0] + ' ' + item[1]) + '&tag=' + AFFILIATE_TAG;
+          aa.textContent = item[0];
           pr.appendChild(aa);
           var au = document.createElement('span'); au.style.cssText = 'color:#595959;font-size:.8rem';
-          au.textContent = ' — ' + picks[pi][1].replace(' Rohit Lamba', ' & Rohit Lamba');
+          au.textContent = ' — ' + item[1].replace(' Rohit Lamba', ' & Rohit Lamba');
           pr.appendChild(au); wrap.appendChild(pr);
+        }
+        if (picks.length) {
+          hh.textContent = 'Further reading on this topic';
+          wrap.appendChild(hh);
+          for (var pi = 0; pi < picks.length; pi++) emitRow(picks[pi]);
+        }
+        if (SHELF.length) {
+          var h2 = hh.cloneNode(false);
+          h2.textContent = 'From the author\u2019s shelf';
+          h2.style.marginTop = picks.length ? '.7rem' : '0';
+          wrap.appendChild(h2);
+          for (var si = 0; si < SHELF.length; si++) emitRow(SHELF[si]);
         }
         var dis = document.createElement('p');
         dis.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;color:#8a8a8a;margin:.5rem 0 0';
