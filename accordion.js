@@ -103,9 +103,48 @@
   /* Off-topic personal picks, shown on every post under their own honest
      heading so they never masquerade as topic reading. */
   var SHELF = [
-    ['Siddhartha', 'Hermann Hesse', '817234368X'],
-    ['Lifelong Stovetop Moka Pot / Espresso Maker', 'Lifelong', 'B0F74B2HRH']
+    ['Siddhartha', 'Hermann Hesse', '817234368X',
+     'https://m.media-amazon.com/images/I/81YwVw+xyoL._SY522_.jpg'],
+    ['Lifelong Stovetop Moka Pot / Espresso Maker', 'Lifelong', 'B0F74B2HRH',
+     'https://m.media-amazon.com/images/I/61tDjFKl7xL._SX679_.jpg']
   ];
+  window.gsIdxShelf = function (host) {
+    if (!AFFILIATE_TAG || !SHELF.length) return;
+    try {
+      var box = document.createElement('div');
+      box.style.cssText = 'margin:1.6rem 0 0;padding-top:1rem;border-top:1px solid #e2e2e2';
+      var h = document.createElement('p');
+      h.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:#8a4b08;margin:0 0 .6rem';
+      h.textContent = 'From the author\u2019s shelf';
+      box.appendChild(h);
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;flex-wrap:wrap;gap:1rem';
+      for (var i = 0; i < SHELF.length; i++) {
+        var it = SHELF[i];
+        var card = document.createElement('a');
+        card.rel = 'nofollow sponsored noopener'; card.target = '_blank';
+        card.href = 'https://www.amazon.in/dp/' + it[2] + '?tag=' + AFFILIATE_TAG;
+        card.style.cssText = 'display:block;width:140px;text-decoration:none;color:#1a1a1a';
+        if (it[3]) {
+          var im = document.createElement('img');
+          im.src = it[3]; im.loading = 'lazy'; im.alt = it[0];
+          im.style.cssText = 'width:140px;height:140px;object-fit:contain;background:#fff;border:1px solid #ececec;border-radius:2px;display:block';
+          card.appendChild(im);
+        }
+        var cap = document.createElement('span');
+        cap.style.cssText = 'display:block;font-size:.78rem;line-height:1.35;margin-top:.35rem';
+        cap.textContent = it[0];
+        card.appendChild(cap);
+        row.appendChild(card);
+      }
+      box.appendChild(row);
+      var dis = document.createElement('p');
+      dis.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;color:#8a8a8a;margin:.6rem 0 0';
+      dis.textContent = 'As an Amazon Associate, this site earns from qualifying purchases made through these links.';
+      box.appendChild(dis);
+      host.appendChild(box);
+    } catch (e) { /* never break the index */ }
+  };
   if (AFFILIATE_TAG && /\.blogspot\.com$/.test(location.hostname)) {
     try {
       var labels = [], las = document.querySelectorAll('.gs-topics a[rel="tag"]');
@@ -119,7 +158,7 @@
         }
       }
       picks = picks.slice(0, 3);
-      if (picks.length || SHELF.length) {
+      if (picks.length) {
         var wrap = document.createElement('div');
         wrap.style.cssText = 'margin:0 0 1.2rem;padding:.9rem 1rem;background:#F4F7FB;border-left:3px solid #8a4b08';
         var hh = document.createElement('p');
@@ -136,22 +175,9 @@
           au.textContent = ' — ' + item[1].replace(' Rohit Lamba', ' & Rohit Lamba');
           pr.appendChild(au); wrap.appendChild(pr);
         }
-        if (picks.length) {
-          hh.textContent = 'Further reading on this topic';
-          wrap.appendChild(hh);
-          for (var pi = 0; pi < picks.length; pi++) emitRow(picks[pi]);
-        }
-        if (SHELF.length) {
-          var h2 = hh.cloneNode(false);
-          h2.textContent = 'From the author\u2019s shelf';
-          h2.style.marginTop = picks.length ? '.7rem' : '0';
-          wrap.appendChild(h2);
-          for (var si = 0; si < SHELF.length; si++) emitRow(SHELF[si]);
-        }
-        var dis = document.createElement('p');
-        dis.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;color:#8a8a8a;margin:.5rem 0 0';
-        dis.textContent = 'As an Amazon Associate, this site earns from qualifying purchases made through these links.';
-        wrap.appendChild(dis);
+        hh.textContent = 'Further reading on this topic';
+        wrap.appendChild(hh);
+        for (var pi = 0; pi < picks.length; pi++) emitRow(picks[pi]);
         host.appendChild(wrap);
       }
     } catch (e) { /* an affiliate failure must never break the index */ }
@@ -175,5 +201,7 @@
     m.innerHTML = '<a href="' + BASE + '/2026/08/article-index-start-here.html">' +
       'Full index — by topic, geography, date and connection →</a>';
     host.appendChild(m);
+    /* Author's-shelf image cards, always the last element on the page. */
+    if (window.gsIdxShelf) window.gsIdxShelf(host);
   });
 })();
