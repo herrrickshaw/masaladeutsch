@@ -6,6 +6,28 @@
   var host = document.getElementById('gs-idx');
   if (!host || host.getAttribute('data-done')) return;
   host.setAttribute('data-done', '1');
+
+  /* ---- AdSense unit, dormant until AD_SLOT is filled in. ----------------
+     Set AD_SLOT to the data-ad-slot id of a display unit created in the
+     AdSense console, push this file, and the unit appears above the index
+     on every post -- one edit, site-wide, and as easy to remove.
+     Renders only on the blog itself: the theme already loads adsbygoogle.js
+     there, and the github.io mirror is not an approved AdSense site. */
+  var AD_SLOT = '';
+  if (AD_SLOT && /\.blogspot\.com$/.test(location.hostname)) {
+    try {
+      var ins = document.createElement('ins');
+      ins.className = 'adsbygoogle';
+      ins.style.display = 'block';
+      ins.style.margin = '0 0 1rem';
+      ins.setAttribute('data-ad-client', 'ca-pub-5664000309261019');
+      ins.setAttribute('data-ad-slot', AD_SLOT);
+      ins.setAttribute('data-ad-format', 'auto');
+      ins.setAttribute('data-full-width-responsive', 'true');
+      host.appendChild(ins);
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) { /* an ad failure must never break the index */ }
+  }
   var BASE = 'https://masaladeutsch.blogspot.com', n = 0;
   window.gsIdxCb = window.gsIdxCb || {};
   function jsonp(url, cb) {
