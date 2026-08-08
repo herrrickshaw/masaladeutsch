@@ -112,7 +112,9 @@
     ['Sweet Karam Coffee ABC Milk Mix — apple, beetroot & carrot, 500 g', 'Sweet Karam Coffee', 'B0FC5T4W8Q',
      'https://m.media-amazon.com/images/I/71eBPMQxu2L._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg'],
     ['Carbamide Forte Organic Spirulina Tablets, 2000 mg per serving', 'Carbamide Forte', 'B07WVBC8PH',
-     'https://m.media-amazon.com/images/I/61YDYSP8hLL._SX679_.jpg']
+     'https://m.media-amazon.com/images/I/61YDYSP8hLL._SX679_.jpg'],
+    ['Talking to Strangers', 'Malcolm Gladwell', '0141988495',
+     'https://m.media-amazon.com/images/I/81Z4MTU7iKL._SY522_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
