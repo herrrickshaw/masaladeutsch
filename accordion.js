@@ -118,7 +118,9 @@
     ['Talking to Strangers', 'Malcolm Gladwell', '0141988495',
      'https://m.media-amazon.com/images/I/81Z4MTU7iKL._SY522_.jpg'],
     ['777 Nannari Sharbat, 700 ml pack of 2', '777', 'B0H4G7LF9P',
-     'https://m.media-amazon.com/images/I/61aEmrLQlSL._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg']
+     'https://m.media-amazon.com/images/I/61aEmrLQlSL._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg'],
+    ['The Dip & Mindset — two-book set (revised)', 'Seth Godin & Carol Dweck', 'B0BLVVJ18D',
+     'https://m.media-amazon.com/images/I/71UYOzNtbTL._SX445_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
