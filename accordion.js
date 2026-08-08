@@ -96,9 +96,9 @@
                           ['Overdraft: Saving the Indian Saver', 'Urjit Patel']],
     'Prices & Inflation': [['I Do What I Do', 'Raghuram Rajan', 'B0BXD7LG75']],
     'Agriculture & Fertilisers': [['Everybody Loves a Good Drought', 'P. Sainath', '0140259848']],
-    'Climate & Carbon': [['How the World Really Works', 'Vaclav Smil']],
-    'Mobility & EV':  [['Energy and Civilization: A History', 'Vaclav Smil']],
-    'AI Tools':       [['Co-Intelligence: Living and Working with AI', 'Ethan Mollick']]
+    'Climate & Carbon': [['How the World Really Works', 'Vaclav Smil', '0241989671']],
+    'Mobility & EV':  [['Energy and Civilization: A History', 'Vaclav Smil', '0262536161']],
+    'AI Tools':       [['Co-Intelligence: Living and Working with AI', 'Ethan Mollick', '0753560771']]
   };
   if (AFFILIATE_TAG && /\.blogspot\.com$/.test(location.hostname)) {
     try {
