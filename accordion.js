@@ -82,7 +82,7 @@
      stale or mistyped ASIN would send readers to the wrong product under the
      site's name; a title search cannot. Renders only on the blog, always with
      the Associates disclosure line. Empty tag = nothing renders anywhere. */
-  var AFFILIATE_TAG = '';
+  var AFFILIATE_TAG = 'herpetithabib-21';
   var BOOKS = {
     'Energy & Fuels': [['The Prize: The Epic Quest for Oil, Money and Power', 'Daniel Yergin'],
                        ['The New Map: Energy, Climate, and the Clash of Nations', 'Daniel Yergin']],
