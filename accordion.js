@@ -156,7 +156,9 @@
     ['Middle Class to Money Class: Simple Secrets to Investing like a Pro', 'Sairam & Srividhya', '1946869066',
      'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1489158423i/34525905.jpg'],
     ['Wings of Fire: Agni Ki Udaan (Hindi edition)', 'A.P.J. Abdul Kalam & Arun Tiwari', '9351864499',
-     'https://m.media-amazon.com/images/P/9351864499.01._SY522_.jpg']
+     'https://m.media-amazon.com/images/P/9351864499.01._SY522_.jpg'],
+    ['The Working of the Indian Constitution', 'Arghya Sengupta & Chitrakshi Goyal (eds.)', '1032671599',
+     'https://m.media-amazon.com/images/P/1032671599.01._SY522_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
