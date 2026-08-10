@@ -175,7 +175,11 @@
     ['Brewtal Mix Masala Chai Bombs — crushed elaychi, cinnamon & spices, pack of 30 cups', 'Brewtal', 'B0H9GW813X',
      'https://m.media-amazon.com/images/I/61j0aL-Z9ZL._SX679_PIbundle-30,TopRight,0,0_AA679SH20_.jpg', 'other'],
     ['Everest Tea Masala, 50 g', 'Everest', 'B00O0X73GW',
-     'https://m.media-amazon.com/images/P/B00O0X73GW.01._SX679_.jpg', 'other']
+     'https://m.media-amazon.com/images/P/B00O0X73GW.01._SX679_.jpg', 'other'],
+    ['Chitale Bandhu Bakarwadi, 500 g tray', 'Chitale Bandhu', 'B0DD1LRWS6',
+     'https://m.media-amazon.com/images/I/814sAdUKL3L._SX679_.jpg', 'other'],
+    ['A Sixth of Humanity: Independent India’s Development Odyssey', 'Devesh Kapur & Arvind Subramanian', '9369891099',
+     'https://m.media-amazon.com/images/P/9369891099.01._SX679_.jpg', 'book']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
