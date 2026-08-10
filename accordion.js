@@ -175,14 +175,15 @@
               'body{margin:0}' +
               'table{display:block !important}' +
               'tr{display:flex !important;flex-wrap:wrap !important;' +
-              'align-content:flex-start !important;width:190px !important}' +
+              'align-content:flex-start !important;width:1px !important}' +
               'td{display:block !important;width:auto !important;' +
-              'white-space:nowrap !important;padding:0 !important}' +
-              'td a{display:block !important;padding:.15rem .4rem !important;font-size:13px !important}';
+              'white-space:nowrap !important;padding:0 !important;flex:0 0 auto !important}' +
+              'td a{display:block !important;padding:.15rem .4rem !important;font-size:13px !important;' +
+              'white-space:nowrap !important}';
             d.head.appendChild(st);
             var body = d.querySelector('[id$=".menuBody"]');
-            if (body) { body.style.width = '210px'; body.style.height = '400px'; body.style.overflowY = 'auto'; }
-            f.style.width = '230px';
+            if (body) { body.style.width = '230px'; body.style.height = '400px'; body.style.overflowY = 'auto'; }
+            f.style.width = '250px';
             f.style.height = '420px';
           } catch (e) { /* cross-origin or DOM-shape change -- leave Google's own layout as-is */ }
         })(frames[fi]);
