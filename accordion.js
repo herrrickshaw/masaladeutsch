@@ -158,7 +158,13 @@
     ['Wings of Fire: Agni Ki Udaan (Hindi edition)', 'A.P.J. Abdul Kalam & Arun Tiwari', '9351864499',
      'https://m.media-amazon.com/images/P/9351864499.01._SY522_.jpg'],
     ['The Working of the Indian Constitution', 'Arghya Sengupta & Chitrakshi Goyal (eds.)', '1032671599',
-     'https://m.media-amazon.com/images/P/1032671599.01._SY522_.jpg']
+     'https://m.media-amazon.com/images/P/1032671599.01._SY522_.jpg'],
+    ['The Two-Income Trap: Why Middle-Class Parents Are Still Going Broke', 'Elizabeth Warren & Amelia Warren Tyagi', 'B06XC819VR',
+     'https://m.media-amazon.com/images/P/B06XC819VR.01._SY522_.jpg'],
+    ['All Your Worth: The Ultimate Lifetime Money Plan', 'Elizabeth Warren & Amelia Warren Tyagi', '074326987X',
+     'https://m.media-amazon.com/images/P/074326987X.01._SY522_.jpg'],
+    ['Your Money or Your Life', 'Vicki Robin & Joe Dominguez', '0143115766',
+     'https://m.media-amazon.com/images/P/0143115766.01._SY522_.jpg']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
