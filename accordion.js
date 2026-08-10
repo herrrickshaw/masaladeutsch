@@ -171,7 +171,11 @@
     ['The Second Sex (Vintage Feminism Short Edition)', 'Simone de Beauvoir', '1784870382',
      'https://m.media-amazon.com/images/P/1784870382.01._SY522_.jpg', 'book'],
     ['The Blaft Anthology of Tamil Pulp Fiction', 'Blaft (ed.)', '8190605607',
-     'https://m.media-amazon.com/images/P/8190605607.01._SY522_.jpg', 'book']
+     'https://m.media-amazon.com/images/P/8190605607.01._SY522_.jpg', 'book'],
+    ['Brewtal Mix Masala Chai Bombs — crushed elaychi, cinnamon & spices, pack of 30 cups', 'Brewtal', 'B0H9GW813X',
+     'https://m.media-amazon.com/images/I/61j0aL-Z9ZL._SX679_PIbundle-30,TopRight,0,0_AA679SH20_.jpg', 'other'],
+    ['Everest Tea Masala, 50 g', 'Everest', 'B00O0X73GW',
+     'https://m.media-amazon.com/images/P/B00O0X73GW.01._SX679_.jpg', 'other']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
