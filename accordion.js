@@ -181,6 +181,31 @@
               'td a{display:block !important;padding:.15rem .4rem !important;font-size:13px !important;' +
               'white-space:nowrap !important}';
             d.head.appendChild(st);
+            /* Promote major Indian languages to the top of the (otherwise
+               alphabetical) list, right after the "Select Language" entry.
+               Matched by displayed-name prefix rather than exact string, so
+               script-variant entries Google lists separately -- "Punjabi
+               (Gurmukhi)" / "Punjabi (Shahmukhi)", "Odia (Oriya)" -- are all
+               caught under their base name. */
+            try {
+              var tr = table.querySelector('tr');
+              var promo = d.createElement('td');
+              var PRIORITY = ['Hindi', 'Bengali', 'Tamil', 'Telugu', 'Marathi',
+                'Gujarati', 'Kannada', 'Malayalam', 'Punjabi', 'Urdu', 'Odia', 'Assamese'];
+              PRIORITY.forEach(function (name) {
+                var lower = name.toLowerCase();
+                var links = tr.querySelectorAll('td a');
+                for (var li = 0; li < links.length; li++) {
+                  var span = links[li].querySelector('.text');
+                  var txt = ((span ? span.textContent : links[li].textContent) || '').trim();
+                  if (txt.toLowerCase().indexOf(lower) === 0) promo.appendChild(links[li]);
+                }
+              });
+              if (promo.children.length) {
+                var firstTd = tr.querySelector('td');
+                tr.insertBefore(promo, firstTd.nextSibling);
+              }
+            } catch (e) { /* reorder failure must never break the menu */ }
             var body = d.querySelector('[id$=".menuBody"]');
             if (body) { body.style.width = '230px'; body.style.height = '400px'; body.style.overflowY = 'auto'; }
             f.style.width = '250px';
