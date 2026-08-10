@@ -181,12 +181,16 @@
               'td a{display:block !important;padding:.15rem .4rem !important;font-size:13px !important;' +
               'white-space:nowrap !important}';
             d.head.appendChild(st);
-            /* Promote major Indian languages to the top of the (otherwise
-               alphabetical) list, right after the "Select Language" entry.
-               Matched by displayed-name prefix rather than exact string, so
-               script-variant entries Google lists separately -- "Punjabi
-               (Gurmukhi)" / "Punjabi (Shahmukhi)", "Odia (Oriya)" -- are all
-               caught under their base name. */
+            /* Promote major Indian languages to the very top of the
+               (otherwise alphabetical) list. Matched by displayed-name
+               prefix rather than exact string, so script-variant entries
+               Google lists separately -- "Punjabi (Gurmukhi)" / "Punjabi
+               (Shahmukhi)", "Odia (Oriya)" -- are all caught under their
+               base name. Inserted as the tr's literal first child rather
+               than "after the Select-Language entry": that entry isn't
+               reliably present (absent once a translation is already
+               active), so anchoring to it silently failed to promote
+               anything to the front in that state. */
             try {
               var tr = table.querySelector('tr');
               var promo = d.createElement('td');
@@ -201,10 +205,7 @@
                   if (txt.toLowerCase().indexOf(lower) === 0) promo.appendChild(links[li]);
                 }
               });
-              if (promo.children.length) {
-                var firstTd = tr.querySelector('td');
-                tr.insertBefore(promo, firstTd.nextSibling);
-              }
+              if (promo.children.length) tr.insertBefore(promo, tr.firstChild);
             } catch (e) { /* reorder failure must never break the menu */ }
             var body = d.querySelector('[id$=".menuBody"]');
             if (body) { body.style.width = '230px'; body.style.height = '400px'; body.style.overflowY = 'auto'; }
