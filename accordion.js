@@ -3,6 +3,140 @@
    first open, so it can never go stale and never needs a post edit to update.
    Served from GitHub Pages so changing this ONE file changes every page. */
 (function () {
+  /* ---- Accessibility bar: three-step text size + read-aloud, injected as
+     the first element inside .artx on every post. Runs before the #gs-idx
+     guard below and has its own idempotency check, so it still works on any
+     post that hasn't been backfilled with the index-widget stub yet.
+     Font-size scales the document ROOT (every template sizes headings/body
+     text in rem, which cascades from :root) instead of touching each of
+     ~120 already-published pages' inline CSS. Read-aloud uses the browser's
+     own SpeechSynthesis -- no external service, nothing to host -- and
+     follows Google Translate's own language selector so a translated page
+     is read back in that language when a local voice for it exists. */
+  try {
+    var artx = document.querySelector('.artx');
+    if (artx && !artx.getAttribute('data-a11y-done')) {
+      artx.setAttribute('data-a11y-done', '1');
+      var a11yCss = document.createElement('style');
+      a11yCss.textContent =
+        '.gs-a11y{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:0 0 1.2rem;' +
+        'padding:.5rem .7rem;background:#F4F7FB;border:1px solid #dbe3ee;border-radius:4px;' +
+        'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}' +
+        '.gs-a11y .gs-a11y-lbl{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8a;margin-right:.1rem}' +
+        '.gs-a11y button{font-family:inherit;font-weight:600;color:#0B1F2D;background:#fff;' +
+        'border:1px solid #c6d0dd;border-radius:3px;padding:.28rem .6rem;cursor:pointer;line-height:1}' +
+        '.gs-a11y button:hover{background:#eaf0fa}' +
+        '.gs-a11y button[aria-pressed="true"]{background:#0B1F2D;color:#fff;border-color:#0B1F2D}' +
+        '.gs-a11y .gs-a11y-sep{width:1px;align-self:stretch;background:#dbe3ee;margin:0 .2rem}';
+      document.head.appendChild(a11yCss);
+
+      var FS_KEY = 'gs-fontsize';
+      var FS_STEPS = { sm: '87.5%', md: '100%', lg: '115%' };
+      var fsSaved = 'md';
+      try { fsSaved = localStorage.getItem(FS_KEY) || 'md'; } catch (e) {}
+      var applyFs = function (sz) {
+        document.documentElement.style.fontSize = FS_STEPS[sz] || FS_STEPS.md;
+        try { localStorage.setItem(FS_KEY, sz); } catch (e) {}
+      };
+      applyFs(fsSaved);
+
+      var bar = document.createElement('div');
+      bar.className = 'gs-a11y';
+
+      var fsLbl = document.createElement('span');
+      fsLbl.className = 'gs-a11y-lbl'; fsLbl.textContent = 'Text size';
+      bar.appendChild(fsLbl);
+
+      var fsBtns = {};
+      [['sm', 'A', '.8rem', 'Small text'], ['md', 'A', '.95rem', 'Medium text'],
+       ['lg', 'A', '1.15rem', 'Large text']].forEach(function (row) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.textContent = row[1]; b.title = row[3];
+        b.style.fontSize = row[2];
+        b.setAttribute('aria-pressed', row[0] === fsSaved ? 'true' : 'false');
+        b.addEventListener('click', function () {
+          applyFs(row[0]);
+          for (var k in fsBtns) fsBtns[k].setAttribute('aria-pressed', k === row[0] ? 'true' : 'false');
+        });
+        fsBtns[row[0]] = b;
+        bar.appendChild(b);
+      });
+
+      if (window.speechSynthesis && window.SpeechSynthesisUtterance) {
+        var sep = document.createElement('span'); sep.className = 'gs-a11y-sep';
+        bar.appendChild(sep);
+
+        var TTS_LANG = {
+          en: 'en-IN', hi: 'hi-IN', mr: 'mr-IN', ta: 'ta-IN', te: 'te-IN',
+          kn: 'kn-IN', ml: 'ml-IN', gu: 'gu-IN', pa: 'pa-IN', bn: 'bn-IN',
+          ur: 'ur-IN', de: 'de-DE', fr: 'fr-FR', es: 'es-ES', ja: 'ja-JP',
+          ko: 'ko-KR', ru: 'ru-RU', pt: 'pt-PT', it: 'it-IT', ar: 'ar-SA'
+        };
+        var currentLang = function () {
+          try {
+            var sel = document.querySelector('select.goog-te-combo');
+            if (sel && sel.value && TTS_LANG[sel.value]) return TTS_LANG[sel.value];
+          } catch (e) {}
+          return 'en-IN';
+        };
+
+        var readBtn = document.createElement('button');
+        readBtn.type = 'button'; readBtn.textContent = '🔊 Listen';
+        var pauseTimer = null, speaking = false, paused = false;
+        var stopSpeech = function () {
+          try { window.speechSynthesis.cancel(); } catch (e) {}
+          if (pauseTimer) { clearInterval(pauseTimer); pauseTimer = null; }
+          speaking = false; paused = false;
+          readBtn.textContent = '🔊 Listen';
+        };
+        readBtn.addEventListener('click', function () {
+          if (!speaking) {
+            var parts = [];
+            for (var i = 0; i < artx.children.length; i++) {
+              var c = artx.children[i];
+              if (c === bar) continue;
+              var t = c.innerText || c.textContent || '';
+              if (t.trim()) parts.push(t.trim());
+            }
+            var text = parts.join('. ');
+            if (!text) return;
+            var utt = new SpeechSynthesisUtterance(text);
+            utt.lang = currentLang();
+            utt.rate = 0.98;
+            utt.onend = stopSpeech; utt.onerror = stopSpeech;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utt);
+            speaking = true; paused = false;
+            readBtn.textContent = '⏸ Pause';
+            /* Chrome silently stalls long utterances after ~15s of internal
+               idle; a periodic pause/resume nudge works around the bug. */
+            pauseTimer = setInterval(function () {
+              if (!window.speechSynthesis.speaking) return;
+              window.speechSynthesis.pause();
+              window.speechSynthesis.resume();
+            }, 10000);
+          } else if (!paused) {
+            window.speechSynthesis.pause();
+            paused = true; readBtn.textContent = '▶ Resume';
+          } else {
+            window.speechSynthesis.resume();
+            paused = false; readBtn.textContent = '⏸ Pause';
+          }
+        });
+        bar.appendChild(readBtn);
+
+        var stopBtn = document.createElement('button');
+        stopBtn.type = 'button'; stopBtn.textContent = '■ Stop';
+        stopBtn.addEventListener('click', stopSpeech);
+        bar.appendChild(stopBtn);
+
+        window.addEventListener('beforeunload', stopSpeech);
+      }
+
+      artx.insertBefore(bar, artx.firstChild);
+    }
+  } catch (e) { /* accessibility bar failure must never break the page */ }
+
   var host = document.getElementById('gs-idx');
   if (!host || host.getAttribute('data-done')) return;
   host.setAttribute('data-done', '1');
