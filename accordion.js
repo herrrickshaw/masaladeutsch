@@ -179,7 +179,15 @@
     ['Chitale Bandhu Bakarwadi, 500 g tray', 'Chitale Bandhu', 'B0DD1LRWS6',
      'https://m.media-amazon.com/images/I/814sAdUKL3L._SX679_.jpg', 'other'],
     ['A Sixth of Humanity: Independent India’s Development Odyssey', 'Devesh Kapur & Arvind Subramanian', '9369891099',
-     'https://m.media-amazon.com/images/P/9369891099.01._SX679_.jpg', 'book']
+     'https://m.media-amazon.com/images/P/9369891099.01._SX679_.jpg', 'book'],
+    ['Everest Pav Bhaji Masala, 50 g', 'Everest', 'B0154VTRB2',
+     'https://m.media-amazon.com/images/P/B0154VTRB2.01._SX679_.jpg', 'other'],
+    ['All About Love: New Visions', 'bell hooks', '0063269341',
+     'https://m.media-amazon.com/images/P/0063269341.01._SX679_.jpg', 'book'],
+    ['ZanduKesariJivan Ayurvedic Immunity Booster & Revitalizer, 900 g', 'Zandu', 'B0GHSFRJLM',
+     'https://m.media-amazon.com/images/I/61aqeKIZ+tL._SX679_.jpg', 'other'],
+    ['India’s Quest for Energy Security', 'Vikram S. Mehta', 'B0DJ2T87N9',
+     'https://m.media-amazon.com/images/P/B0DJ2T87N9.01._SX679_.jpg', 'book']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
