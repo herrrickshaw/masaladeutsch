@@ -73,9 +73,13 @@
           ko: 'ko-KR', ru: 'ru-RU', pt: 'pt-PT', it: 'it-IT', ar: 'ar-SA'
         };
         var currentLang = function () {
+          /* The SIMPLE-layout gadget never renders a select#goog-te-combo --
+             the active translation target lives only in the googtrans
+             cookie, format "/en/<target>". */
           try {
-            var sel = document.querySelector('select.goog-te-combo');
-            if (sel && sel.value && TTS_LANG[sel.value]) return TTS_LANG[sel.value];
+            var m = document.cookie.match(/(?:^|;\s*)googtrans=\/[^\/]*\/([a-zA-Z-]+)/);
+            var code = m && m[1];
+            if (code && TTS_LANG[code]) return TTS_LANG[code];
           } catch (e) {}
           return 'en-IN';
         };
@@ -91,10 +95,18 @@
         };
         readBtn.addEventListener('click', function () {
           if (!speaking) {
+            /* Skip non-content top-level children outright: for a <script>
+               or <style> element, innerText is empty (nothing renders), so
+               the innerText||textContent fallback below would otherwise
+               read back its raw JS/JSON/CSS source instead of silently
+               skipping it. Nested scripts inside a content block (e.g. a
+               chart's config) are already excluded automatically, since
+               innerText only reflects rendered text. */
+            var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, IFRAME: 1, TEMPLATE: 1 };
             var parts = [];
             for (var i = 0; i < artx.children.length; i++) {
               var c = artx.children[i];
-              if (c === bar) continue;
+              if (c === bar || SKIP_TAGS[c.tagName]) continue;
               var t = c.innerText || c.textContent || '';
               if (t.trim()) parts.push(t.trim());
             }
@@ -136,6 +148,48 @@
       artx.insertBefore(bar, artx.firstChild);
     }
   } catch (e) { /* accessibility bar failure must never break the page */ }
+
+  /* ---- Google Translate language-menu layout fix ------------------------
+     Google's own widget renders its full language list as ONE table row
+     split into dozens of narrow columns, in a same-origin (blank-src,
+     directly-written) iframe -- wide enough to overflow any normal column,
+     and with click targets small enough that picking a specific language
+     (Tamil, reported) is unreliable. Since the iframe is same-origin we can
+     reach into it and inject our own CSS: force the row to wrap as a
+     narrow flex column instead of one wide row, so it reads as a single
+     scrollable vertical list. Re-applied via MutationObserver since Google
+     rebuilds this iframe's contents fresh on every open. */
+  try {
+    var teObserver = new MutationObserver(function () {
+      var frames = document.querySelectorAll('iframe.skiptranslate');
+      for (var fi = 0; fi < frames.length; fi++) {
+        (function (f) {
+          try {
+            var d = f.contentDocument;
+            if (!d || !d.documentElement || d.documentElement.getAttribute('data-gs-te-fixed')) return;
+            var table = d.querySelector('table');
+            if (!table) return;
+            d.documentElement.setAttribute('data-gs-te-fixed', '1');
+            var st = d.createElement('style');
+            st.textContent =
+              'body{margin:0}' +
+              'table{display:block !important}' +
+              'tr{display:flex !important;flex-wrap:wrap !important;' +
+              'align-content:flex-start !important;width:190px !important}' +
+              'td{display:block !important;width:auto !important;' +
+              'white-space:nowrap !important;padding:0 !important}' +
+              'td a{display:block !important;padding:.15rem .4rem !important;font-size:13px !important}';
+            d.head.appendChild(st);
+            var body = d.querySelector('[id$=".menuBody"]');
+            if (body) { body.style.width = '210px'; body.style.height = '400px'; body.style.overflowY = 'auto'; }
+            f.style.width = '230px';
+            f.style.height = '420px';
+          } catch (e) { /* cross-origin or DOM-shape change -- leave Google's own layout as-is */ }
+        })(frames[fi]);
+      }
+    });
+    teObserver.observe(document.body, { childList: true, subtree: true });
+  } catch (e) { /* translate-menu fix failure must never break the page */ }
 
   var host = document.getElementById('gs-idx');
   if (!host || host.getAttribute('data-done')) return;
