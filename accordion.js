@@ -167,7 +167,11 @@
     ['All Your Worth: The Ultimate Lifetime Money Plan', 'Elizabeth Warren & Amelia Warren Tyagi', '074326987X',
      'https://m.media-amazon.com/images/P/074326987X.01._SY522_.jpg', 'book'],
     ['Your Money or Your Life', 'Vicki Robin & Joe Dominguez', '0143115766',
-     'https://m.media-amazon.com/images/P/0143115766.01._SY522_.jpg', 'book']
+     'https://m.media-amazon.com/images/P/0143115766.01._SY522_.jpg', 'book'],
+    ['The Second Sex (Vintage Feminism Short Edition)', 'Simone de Beauvoir', '1784870382',
+     'https://m.media-amazon.com/images/P/1784870382.01._SY522_.jpg', 'book'],
+    ['The Blaft Anthology of Tamil Pulp Fiction', 'Blaft (ed.)', '8190605607',
+     'https://m.media-amazon.com/images/P/8190605607.01._SY522_.jpg', 'book']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
