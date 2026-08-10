@@ -137,37 +137,37 @@
      heading so they never masquerade as topic reading. */
   var SHELF = [
     ['Siddhartha', 'Hermann Hesse', '817234368X',
-     'https://m.media-amazon.com/images/I/81YwVw+xyoL._SY522_.jpg'],
+     'https://m.media-amazon.com/images/I/81YwVw+xyoL._SY522_.jpg', 'book'],
     ['Lifelong Stovetop Moka Pot / Espresso Maker', 'Lifelong', 'B0F74B2HRH',
-     'https://m.media-amazon.com/images/I/61tDjFKl7xL._SX679_.jpg'],
+     'https://m.media-amazon.com/images/I/61tDjFKl7xL._SX679_.jpg', 'other'],
     ['Saravana Degree Coffee Powder — Chikmagaluru filter coffee, 250 g', 'Saravana', 'B0F5XYKJNK',
-     'https://m.media-amazon.com/images/I/61y8EIhYlAL._SX679_.jpg'],
+     'https://m.media-amazon.com/images/I/61y8EIhYlAL._SX679_.jpg', 'other'],
     ['Sweet Karam Coffee ABC Milk Mix — apple, beetroot & carrot, 500 g', 'Sweet Karam Coffee', 'B0FC5T4W8Q',
-     'https://m.media-amazon.com/images/I/71eBPMQxu2L._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg'],
+     'https://m.media-amazon.com/images/I/71eBPMQxu2L._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg', 'other'],
     ['Carbamide Forte Organic Spirulina Tablets, 2000 mg per serving', 'Carbamide Forte', 'B07WVBC8PH',
-     'https://m.media-amazon.com/images/I/61YDYSP8hLL._SX679_.jpg'],
+     'https://m.media-amazon.com/images/I/61YDYSP8hLL._SX679_.jpg', 'other'],
     ['Talking to Strangers', 'Malcolm Gladwell', '0141988495',
-     'https://m.media-amazon.com/images/I/81Z4MTU7iKL._SY522_.jpg'],
+     'https://m.media-amazon.com/images/I/81Z4MTU7iKL._SY522_.jpg', 'book'],
     ['777 Nannari Sharbat, 700 ml pack of 2', '777', 'B0H4G7LF9P',
-     'https://m.media-amazon.com/images/I/61aEmrLQlSL._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg'],
+     'https://m.media-amazon.com/images/I/61aEmrLQlSL._SX679_PIbundle-2,TopRight,0,0_AA679SH20_.jpg', 'other'],
     ['The Dip & Mindset — two-book set (revised)', 'Seth Godin & Carol Dweck', 'B0BLVVJ18D',
-     'https://m.media-amazon.com/images/I/71UYOzNtbTL._SX445_.jpg'],
+     'https://m.media-amazon.com/images/I/71UYOzNtbTL._SX445_.jpg', 'book'],
     ['Haldiram\u2019s Nagpur Orange Burfee, 500 g', 'Haldiram\u2019s', 'B0BGPR43WQ',
-     'https://m.media-amazon.com/images/I/71r0frXkPgL._SX679_.jpg'],
+     'https://m.media-amazon.com/images/I/71r0frXkPgL._SX679_.jpg', 'other'],
     ['The Argumentative Indian', 'Amartya Sen', '0141012110',
-     'https://m.media-amazon.com/images/I/81jz1oGFymL._SY522_.jpg'],
+     'https://m.media-amazon.com/images/I/81jz1oGFymL._SY522_.jpg', 'book'],
     ['Middle Class to Money Class: Simple Secrets to Investing like a Pro', 'Sairam & Srividhya', '1946869066',
-     'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1489158423i/34525905.jpg'],
+     'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1489158423i/34525905.jpg', 'book'],
     ['Wings of Fire: Agni Ki Udaan (Hindi edition)', 'A.P.J. Abdul Kalam & Arun Tiwari', '9351864499',
-     'https://m.media-amazon.com/images/P/9351864499.01._SY522_.jpg'],
+     'https://m.media-amazon.com/images/P/9351864499.01._SY522_.jpg', 'book'],
     ['The Working of the Indian Constitution', 'Arghya Sengupta & Chitrakshi Goyal (eds.)', '1032671599',
-     'https://m.media-amazon.com/images/P/1032671599.01._SY522_.jpg'],
+     'https://m.media-amazon.com/images/P/1032671599.01._SY522_.jpg', 'book'],
     ['The Two-Income Trap: Why Middle-Class Parents Are Still Going Broke', 'Elizabeth Warren & Amelia Warren Tyagi', 'B06XC819VR',
-     'https://m.media-amazon.com/images/P/B06XC819VR.01._SY522_.jpg'],
+     'https://m.media-amazon.com/images/P/B06XC819VR.01._SY522_.jpg', 'book'],
     ['All Your Worth: The Ultimate Lifetime Money Plan', 'Elizabeth Warren & Amelia Warren Tyagi', '074326987X',
-     'https://m.media-amazon.com/images/P/074326987X.01._SY522_.jpg'],
+     'https://m.media-amazon.com/images/P/074326987X.01._SY522_.jpg', 'book'],
     ['Your Money or Your Life', 'Vicki Robin & Joe Dominguez', '0143115766',
-     'https://m.media-amazon.com/images/P/0143115766.01._SY522_.jpg']
+     'https://m.media-amazon.com/images/P/0143115766.01._SY522_.jpg', 'book']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
@@ -183,27 +183,39 @@
       all.style.cssText = 'font-weight:600;text-transform:none;letter-spacing:0;color:#2251FF;text-decoration:none;margin-left:.4rem';
       h.appendChild(all);
       box.appendChild(h);
-      var row = document.createElement('div');
-      row.style.cssText = 'display:flex;flex-wrap:wrap;gap:1rem';
-      for (var i = 0; i < SHELF.length; i++) {
-        var it = SHELF[i];
-        var card = document.createElement('a');
-        card.rel = 'nofollow sponsored noopener'; card.target = '_blank';
-        card.href = 'https://www.amazon.in/dp/' + it[2] + '?tag=' + AFFILIATE_TAG;
-        card.style.cssText = 'display:block;width:140px;text-decoration:none;color:#1a1a1a';
-        if (it[3]) {
-          var im = document.createElement('img');
-          im.src = it[3]; im.loading = 'lazy'; im.alt = it[0];
-          im.style.cssText = 'width:140px;height:140px;object-fit:contain;background:#fff;border:1px solid #ececec;border-radius:2px;display:block';
-          card.appendChild(im);
+      function buildRow(items) {
+        var row = document.createElement('div');
+        row.style.cssText = 'display:flex;flex-wrap:wrap;gap:1rem';
+        for (var i = 0; i < items.length; i++) {
+          var it = items[i];
+          var card = document.createElement('a');
+          card.rel = 'nofollow sponsored noopener'; card.target = '_blank';
+          card.href = 'https://www.amazon.in/dp/' + it[2] + '?tag=' + AFFILIATE_TAG;
+          card.style.cssText = 'display:block;width:140px;text-decoration:none;color:#1a1a1a';
+          if (it[3]) {
+            var im = document.createElement('img');
+            im.src = it[3]; im.loading = 'lazy'; im.alt = it[0];
+            im.style.cssText = 'width:140px;height:140px;object-fit:contain;background:#fff;border:1px solid #ececec;border-radius:2px;display:block';
+            card.appendChild(im);
+          }
+          var cap = document.createElement('span');
+          cap.style.cssText = 'display:block;font-size:.78rem;line-height:1.35;margin-top:.35rem';
+          cap.textContent = it[0];
+          card.appendChild(cap);
+          row.appendChild(card);
         }
-        var cap = document.createElement('span');
-        cap.style.cssText = 'display:block;font-size:.78rem;line-height:1.35;margin-top:.35rem';
-        cap.textContent = it[0];
-        card.appendChild(cap);
-        row.appendChild(card);
+        return row;
       }
-      box.appendChild(row);
+      function subHeading(text) {
+        var sh = document.createElement('p');
+        sh.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#8a8a8a;margin:1rem 0 .5rem';
+        sh.textContent = text;
+        return sh;
+      }
+      var books = [], others = [];
+      for (var si = 0; si < SHELF.length; si++) (SHELF[si][4] === 'other' ? others : books).push(SHELF[si]);
+      if (books.length) { box.appendChild(subHeading('Books')); box.appendChild(buildRow(books)); }
+      if (others.length) { box.appendChild(subHeading('Other items')); box.appendChild(buildRow(others)); }
       var dis = document.createElement('p');
       dis.style.cssText = 'font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:.7rem;color:#8a8a8a;margin:.6rem 0 0';
       dis.textContent = 'As an Amazon Associate, this site earns from qualifying purchases made through these links.';
