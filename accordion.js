@@ -351,6 +351,9 @@
   /* Off-topic personal picks, shown on every post under their own honest
      heading so they never masquerade as topic reading. */
   var SHELF = [
+    ['The Rise and Fall of Ancient Empires: Egyptian Empire, Akkadian Empire, Assyrian Empire, The Empire of Alexander the Great, Roman Empire, Byzantine Empire', 'George Rawlinson & others', 'B0F4PQTLFJ',
+     'https://m.media-amazon.com/images/I/91086qS+YIL._SY522_.jpg', 'book',
+     'https://www.amazon.in/Rise-Fall-Ancient-Empires-Alexander-ebook/dp/B0F4PQTLFJ?crid=WTDAMBA7VDKK&dib=eyJ2IjoiMSJ9.lQTJl9ACTHkkFwLSr_ao1jO4I3t-5WbMVgUR786kCw7JEjzLYuHgX1jhJYoFd7h8KCQo1P6oZ9TJfFOQK193qFDJ3iiD6rPAfWzeDKgXgePvt8FiJrzoX6aCZTmUBgqM7rNSOw7cc8bx6gJKHxlfBmPdYGoHNQTsAPK0SDl3qdoSM4GwF82DJfnAbrX85Byr3e-Udbnl6IG-iNptg8rawlv1F-e6JVMo7K9B8lI9PL8.FM5uU90Eb_hkBKvBEn5oifTnfawUhUNt-6atYKWFgNc&dib_tag=se&keywords=rise+and+fall+of+empires&qid=1786899139&sprefix=rise+and+fall+of+empire%2Caps%2C412&sr=8-15&linkCode=ll2&tag=herpetithabib-21&linkId=421c2ed53d32583b49e63e9a6751f11c&ref_=as_li_ss_tl'],
     ['Kadavulai Thedatheergal (Tamil)', 'Thenkachi Ko. Swaminathan', 'B075WWJC74',
      'https://herrrickshaw.github.io/masaladeutsch/covers/kadavulai-thedatheergal.png', 'book',
      'https://www.amazon.in/Kadavulai-Thedatheergal-Tamil-Thenkachchi-K-Swaminathan-ebook/dp/B075WWJC74?crid=BWCVE9Z6WKQR&dib=eyJ2IjoiMSJ9.N_mTTJUv4nY8NIiK_ZFPKQnuMmefpJ_M_PryiNIMfQO7FiW73jcqTPgqjFjUjRoVRCUSZ10sMWUh10UxjN22QA-NrUHhRIieOe9YCaKikfQnnFxCSc1mOS-Z_Do8PiL2W0VcI0yggj0lhmy0rRReCDqA_sgjd6IVOZn8YcycX3OjHrF33eEliphWG_o6tO2ViAF30BKx6dDIeLAGS8x6prM9m2nyJtSzIlCnvHVZeYs.sGOodeqmSClLZUQWBWytAuwYs3VYA6qhktbkBR1Z5hg&dib_tag=se&keywords=thenkatchi+g.+swaminathan&qid=1786862219&sprefix=%2Caps%2C405&sr=8-4&linkCode=ll2&tag=herpetithabib-21&linkId=67eca8e3ebe8dc7a206f56b92f9ba1f9&ref_=as_li_ss_tl'],
