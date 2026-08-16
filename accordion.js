@@ -351,6 +351,8 @@
   /* Off-topic personal picks, shown on every post under their own honest
      heading so they never masquerade as topic reading. */
   var SHELF = [
+    ['Jugaad Yatra: Exploring the Indian Art of Problem Solving', 'Dean Nelson', '9387561259',
+     'https://m.media-amazon.com/images/P/9387561259.01._SY522_.jpg', 'book'],
     ['Siddhartha', 'Hermann Hesse', '817234368X',
      'https://m.media-amazon.com/images/I/81YwVw+xyoL._SY522_.jpg', 'book'],
     ['Lifelong Stovetop Moka Pot / Espresso Maker', 'Lifelong', 'B0F74B2HRH',
