@@ -351,7 +351,8 @@
   /* Off-topic personal picks, shown on every post under their own honest
      heading so they never masquerade as topic reading. */
   var SHELF = [
-    ['Kadavulai Thedatheergal (Tamil)', 'Thenkachi Ko. Swaminathan', 'B075WWJC74', 'book',
+    ['Kadavulai Thedatheergal (Tamil)', 'Thenkachi Ko. Swaminathan', 'B075WWJC74',
+     'https://herrrickshaw.github.io/masaladeutsch/covers/kadavulai-thedatheergal.png', 'book',
      'https://www.amazon.in/Kadavulai-Thedatheergal-Tamil-Thenkachchi-K-Swaminathan-ebook/dp/B075WWJC74?crid=BWCVE9Z6WKQR&dib=eyJ2IjoiMSJ9.N_mTTJUv4nY8NIiK_ZFPKQnuMmefpJ_M_PryiNIMfQO7FiW73jcqTPgqjFjUjRoVRCUSZ10sMWUh10UxjN22QA-NrUHhRIieOe9YCaKikfQnnFxCSc1mOS-Z_Do8PiL2W0VcI0yggj0lhmy0rRReCDqA_sgjd6IVOZn8YcycX3OjHrF33eEliphWG_o6tO2ViAF30BKx6dDIeLAGS8x6prM9m2nyJtSzIlCnvHVZeYs.sGOodeqmSClLZUQWBWytAuwYs3VYA6qhktbkBR1Z5hg&dib_tag=se&keywords=thenkatchi+g.+swaminathan&qid=1786862219&sprefix=%2Caps%2C405&sr=8-4&linkCode=ll2&tag=herpetithabib-21&linkId=67eca8e3ebe8dc7a206f56b92f9ba1f9&ref_=as_li_ss_tl'],
     ['Jugaad Yatra: Exploring the Indian Art of Problem Solving', 'Dean Nelson', '9387561259',
      'https://m.media-amazon.com/images/P/9387561259.01._SY522_.jpg', 'book'],
