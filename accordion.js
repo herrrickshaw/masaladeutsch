@@ -410,7 +410,22 @@
     ['ZanduKesariJivan Ayurvedic Immunity Booster & Revitalizer, 900 g', 'Zandu', 'B0GHSFRJLM',
      'https://m.media-amazon.com/images/I/61aqeKIZ+tL._SX679_.jpg', 'other'],
     ['India’s Quest for Energy Security', 'Vikram S. Mehta', 'B0DJ2T87N9',
-     'https://m.media-amazon.com/images/P/B0DJ2T87N9.01._SX679_.jpg', 'book']
+     'https://m.media-amazon.com/images/P/B0DJ2T87N9.01._SX679_.jpg', 'book'],
+    ['Chip War: The Fight for the World’s Most Critical Technology', 'Chris Miller', '1982172002',
+     'https://m.media-amazon.com/images/I/71hMs9v7P6L._SY522_.jpg', 'book',
+     'https://www.amazon.in/Chip-War-Worlds-Critical-Technology/dp/1982172002?crid=31TV8TAKRVFTR&dib=eyJ2IjoiMSJ9.4WJUDlKCAYYtlPpSH1w5MV5Ck2h6VfFCy6VR3e2GBv-2x7BCfQh2NtzdEKV7nABWK11ws1fKHhZMGgel5RocgT8SOTzs7Cn97QbBp8hzY2IwD2FJgOAJF1VpaH37g8_0kwCtOvHZSrID0RvUK2GyS0WwBGhiDtlO5N-zxi_bopN9FSrKFp1f53k2nyAFjZVyJTx1NCg_uxEVB1C-1MsAtMHovaScLE_XdoUogBlXs-M.ETqM4O2D5obF0fuzOVjPSkC3C1Ei1D-PqDMaba4LLA4&dib_tag=se&keywords=Chip+War%3A+The+Fight+for+the+World%27s+Most+Critical+Technology&nsdOptOutParam=true&qid=1787100687&sprefix=chip+war+the+fight+for+the+world%27s+most+critical+technology%2Caps%2C282&sr=8-1&linkCode=ll2&tag=herpetithabib-21&linkId=ac7d5475bf6b21ef92ad1cf49db9a074&ref_=as_li_ss_tl'],
+    ['Restart: The Last Chance for the Indian Economy', 'Mihir S. Sharma', '8184007728',
+     'https://m.media-amazon.com/images/I/71RcXDSbPiL._SY522_.jpg', 'book',
+     'https://www.amazon.in/Restart-Last-Chance-Indian-Economy/dp/8184007728?crid=13C7C2MLAX1YP&dib=eyJ2IjoiMSJ9.e7slbss0dy-2aUsrkYXNPg.52eAsGPhdmUudk4wosbl3ANbMBclNgOStp9OPa3tMpI&dib_tag=se&keywords=Restart%3A+The+Last+Chance+for+the+Indian+Economy&nsdOptOutParam=true&qid=1787100751&sprefix=restart+the+last+chance+for+the+indian+economy%2Caps%2C300&sr=8-1&linkCode=ll2&tag=herpetithabib-21&linkId=704fa272e212aca1088083724198c0b0&ref_=as_li_ss_tl'],
+    ['The Unusual Billionaires', 'Saurabh Mukherjea', '0143426737',
+     'https://m.media-amazon.com/images/I/81H6upa387L._SY522_.jpg', 'book',
+     'https://www.amazon.in/Unusual-Billionaires-Saurabh-Mukherjea/dp/0143426737?crid=15G2L5VW717ZB&dib=eyJ2IjoiMSJ9.M-CgYjNDxDxuzGkkOy4piYSVvGbGekkWfX1BmAri6Avuc_PW1coXqWCLTeROuTflENkaBhEGIXuB9_mwEUNemPJBtZ5wpVLyz265Rwxc_u2Ifsrz1TIPYINAKmtOxeTd-jKSCQt2XuZc8xDg6hJUnf1KwU1CMMUq8AhwBp0YdEiciLwqQ9tE9IzAA2dQRJIcWhx7vP6Vwr6qTUtb-MIxy74qPXNvHvGmcvhL50sYrp4.oEv_YOu_p1rC4K9NmF3TCro7B_zMubSmJ-JJpMF3W2A&dib_tag=se&keywords=The+Billionaire+Raj&qid=1787100796&sprefix=the+billionaire+raj%2Caps%2C305&sr=8-2&linkCode=ll2&tag=herpetithabib-21&linkId=101cf5fcb634d3a9405650cd1c73168e&ref_=as_li_ss_tl'],
+    ['Not the End of the World: How We Can Be the First Generation to Build a Sustainable Planet', 'Hannah Ritchie', 'B0C3X6X695',
+     'https://m.media-amazon.com/images/I/71eouKqUBHL._SY522_.jpg', 'book',
+     'https://www.amazon.in/Not-End-World-Generation-Sustainable-ebook/dp/B0C3X6X695?crid=3UOTDMRZTM9EU&dib=eyJ2IjoiMSJ9.e8dXvnOjmyt4kgQM3z74qt4W175WLZTGgjjioAdZl4BYJue9T1_XlQH1GxXv5Zr31wPk0bJCBLw15E0rZvhumxlQ3vJxyYk4DWG6yzzaxDQhg5RM88S3Snu1mxho9Ynnu7nJf38tUryY7t2U2LGeFCGxVSoA4RjK82S5IdBjndk_5MLVAmjlNh-v2O4gWuLFpH4ZkSSeuSTfUnIPDGVF4KXDt7kPfxQ30U026X8qJu0.KngX6SsJNk5wnnheYnXHFvpoCwontsTx05UVJulcuS4&dib_tag=se&keywords=Not+the+End+of+the+World&qid=1787100988&sprefix=not+the+end+of+the+world%2Caps%2C305&sr=8-1&linkCode=ll2&tag=herpetithabib-21&linkId=ab971affe620282343e5a2e6c517763e&ref_=as_li_ss_tl'],
+    ['Quest for Restoring Financial Stability in India', 'Viral Acharya', '0143461451',
+     'https://m.media-amazon.com/images/I/51gnOlEPSOL._SY522_.jpg', 'book',
+     'https://www.amazon.in/Quest-Restoring-Financial-Stability-Acharya/dp/0143461451?crid=1IJPUU1W9SJUH&dib=eyJ2IjoiMSJ9.tXEjIyWN6Ex4xalaz0w-utPvIknFSDgm-4o1ZY71O8TGqKWGjHd3-xvr0Dab_1TTR9mR4ooGNtc9DfkBzT_YhG2XEh4gmIW3pmCqsqa6VzvCxlD40yB2HqkqFZWXiuUIfLpV3wjieryB3sD0i1j-8s0CjkB466KbbWaTwErngxOw8RoVBqyBON9gytAsE8t_BEBLvPDRlyQ_54dEaJsxu9Z8wKTgQtChVcT6MptYkg4.BKWZff8jiKRyEsjtap795jCg3_b61EKEkRRxxhmCBcg&dib_tag=se&keywords=Quest+for+Restoring+Financial+Stability+in+India&qid=1787100874&sprefix=quest+for+restoring+financial+stability+in+india%2Caps%2C310&sr=8-1&linkCode=ll2&tag=herpetithabib-21&linkId=4da1d8cd51f8755e59ab750c3f6acc6f&ref_=as_li_ss_tl']
   ];
   window.gsIdxShelf = function (host) {
     if (!AFFILIATE_TAG || !SHELF.length) return;
