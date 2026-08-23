@@ -352,6 +352,7 @@
      heading so they never masquerade as topic reading. */
   var SHELF = [
     ['Ravan and Eddie', 'Kiran Nagarkar', '9351774120',
+     'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1211422323i/109328.jpg',
      'book',
      'https://www.amazon.in/Ravan-Eddie-Kiran-Nagarkar/dp/9351774120?crid=1B76RG1OU1JR8&dib=eyJ2IjoiMSJ9.x2NsIw_RfXAsYDymMRwl_yAOet_MQsxxoohC5TQcfKw00JbqnB-OwAFWlZWMMZo54okpGrGTlf_-I4roWgeG1Dm9JSfu6l8nX3Ws9itlpXw.tfqqmczi3vtyQLgHld-R4sTKyl07xLpaWTbYTiNm-zA&dib_tag=se&keywords=ravan+and+eddie&qid=1787458626&sprefix=ravan+and+eddi%2Caps%2C285&sr=8-1&linkCode=ll2&tag=herpetithabib-21&linkId=52d6b4fbffa5f1eb4b409be868408bc3&ref_=as_li_ss_tl'],
     ['The Rise and Fall of Ancient Empires: Egyptian Empire, Akkadian Empire, Assyrian Empire, The Empire of Alexander the Great, Roman Empire, Byzantine Empire', 'George Rawlinson & others', 'B0F4PQTLFJ',
