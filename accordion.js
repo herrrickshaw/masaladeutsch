@@ -351,6 +351,9 @@
   /* Off-topic personal picks, shown on every post under their own honest
      heading so they never masquerade as topic reading. */
   var SHELF = [
+    ['Ravan and Eddie', 'Kiran Nagarkar', '9351774120',
+     'book',
+     'https://www.amazon.in/Ravan-Eddie-Kiran-Nagarkar/dp/9351774120?crid=1B76RG1OU1JR8&dib=eyJ2IjoiMSJ9.x2NsIw_RfXAsYDymMRwl_yAOet_MQsxxoohC5TQcfKw00JbqnB-OwAFWlZWMMZo54okpGrGTlf_-I4roWgeG1Dm9JSfu6l8nX3Ws9itlpXw.tfqqmczi3vtyQLgHld-R4sTKyl07xLpaWTbYTiNm-zA&dib_tag=se&keywords=ravan+and+eddie&qid=1787458626&sprefix=ravan+and+eddi%2Caps%2C285&sr=8-1&linkCode=ll2&tag=herpetithabib-21&linkId=52d6b4fbffa5f1eb4b409be868408bc3&ref_=as_li_ss_tl'],
     ['The Rise and Fall of Ancient Empires: Egyptian Empire, Akkadian Empire, Assyrian Empire, The Empire of Alexander the Great, Roman Empire, Byzantine Empire', 'George Rawlinson & others', 'B0F4PQTLFJ',
      'https://m.media-amazon.com/images/I/91086qS+YIL._SY522_.jpg', 'book',
      'https://www.amazon.in/Rise-Fall-Ancient-Empires-Alexander-ebook/dp/B0F4PQTLFJ?crid=WTDAMBA7VDKK&dib=eyJ2IjoiMSJ9.lQTJl9ACTHkkFwLSr_ao1jO4I3t-5WbMVgUR786kCw7JEjzLYuHgX1jhJYoFd7h8KCQo1P6oZ9TJfFOQK193qFDJ3iiD6rPAfWzeDKgXgePvt8FiJrzoX6aCZTmUBgqM7rNSOw7cc8bx6gJKHxlfBmPdYGoHNQTsAPK0SDl3qdoSM4GwF82DJfnAbrX85Byr3e-Udbnl6IG-iNptg8rawlv1F-e6JVMo7K9B8lI9PL8.FM5uU90Eb_hkBKvBEn5oifTnfawUhUNt-6atYKWFgNc&dib_tag=se&keywords=rise+and+fall+of+empires&qid=1786899139&sprefix=rise+and+fall+of+empire%2Caps%2C412&sr=8-15&linkCode=ll2&tag=herpetithabib-21&linkId=421c2ed53d32583b49e63e9a6751f11c&ref_=as_li_ss_tl'],
