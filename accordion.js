@@ -218,6 +218,24 @@
     teObserver.observe(document.body, { childList: true, subtree: true });
   } catch (e) { /* translate-menu fix failure must never break the page */ }
 
+  /* ---- Auto ads inside layout containers. -------------------------------
+     Auto ads sometimes drops its unit between the tiles of a .gb-stats grid
+     (or inside the .gs-head-order flex header), where it becomes one narrow
+     grid cell and splits the tiles. Layout only: the unit is never hidden,
+     moved in the DOM or resized by script -- it just spans the full row and
+     is ordered after the tiles (or after the standfirst), so it sits between
+     the stat block and the first paragraph instead of inside either. */
+  try {
+    if (!document.getElementById('gs-adfix-css')) {
+      var adCss = document.createElement('style');
+      adCss.id = 'gs-adfix-css';
+      adCss.textContent =
+        '.gb-stats>.google-auto-placed,.gb-stats>ins.adsbygoogle{grid-column:1/-1;order:99;width:100%;margin:.4rem 0}' +
+        '.gs-head-order>.google-auto-placed,.gs-head-order>ins.adsbygoogle{order:99}';
+      document.head.appendChild(adCss);
+    }
+  } catch (e) { /* a layout tweak must never break the page */ }
+
   var host = document.getElementById('gs-idx');
   if (!host || host.getAttribute('data-done')) return;
   host.setAttribute('data-done', '1');
