@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>IEM Register Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a filing-register tool. Summary line and the year-by-year follow-through chart on top,
+   then a filter bar and a dense, scrollable ledger of memoranda. Ink-blue for Part A filings,
+   a bottle-green for Part B (production started), a stamp red for "no Part B found". */
+:root {
+  --bg: #f3f5f7;
+  --panel: #ffffff;
+  --ink: #17212b;
+  --muted: #5b6876;
+  --rule: #d5dce3;
+  --accent: #1f4f8a;
+  --b-green: #2c7a55;
+  --b-name: #8fbfa5;
+  --stamp: #b2402f;
+  --chip: #e6ecf2;
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161c; --panel: #18202a; --ink: #e3e9ef; --muted: #96a3b1; --rule: #2c3743;
+    --accent: #7fb0ec; --b-green: #5cc293; --b-name: #2f6b52; --stamp: #ec7b68; --chip: #233040;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161c; --panel: #18202a; --ink: #e3e9ef; --muted: #96a3b1; --rule: #2c3743;
+  --accent: #7fb0ec; --b-green: #5cc293; --b-name: #2f6b52; --stamp: #ec7b68; --chip: #233040;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 28px; }
+header { display: grid; gap: 8px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-stretch: 78%; font-weight: 800; font-size: clamp(30px, 5vw, 46px); line-height: 1.02; margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-stretch: 85%; font-weight: 700; font-size: 21px; margin: 0; text-wrap: balance; }
+.lede { max-width: 68ch; color: var(--muted); margin: 0; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px 28px; font-variant-numeric: tabular-nums; }
+.summary div { display: grid; }
+.summary b { font-family: var(--display); font-stretch: 85%; font-size: 26px; font-weight: 700; }
+.summary span { font-size: 12.5px; color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; min-width: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; }
+.chart-scroll { overflow-x: auto; }
+svg text { fill: var(--muted); font-family: var(--mono); font-size: 11px; }
+.note { font-size: 13px; color: var(--muted); max-width: 80ch; margin: 0; }
+.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px 12px; align-items: end; }
+.filters .wide { grid-column: span 2; }
+@media (max-width: 520px) { .filters .wide { grid-column: auto; } }
+label { display: grid; gap: 4px; font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--muted); }
+input, select { font: inherit; font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 4px; padding: 7px 9px; width: 100%; min-width: 0; }
+input:focus-visible, select:focus-visible, button:focus-visible, tr:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+select:disabled { opacity: .55; }
+.actions { display: flex; align-items: end; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 0; }
+.chip { font-size: 12.5px; background: var(--chip); border: 1px solid var(--rule); border-radius: 14px; padding: 3px 10px; }
+.chip button { all: unset; cursor: pointer; margin-left: 6px; color: var(--muted); font-weight: 700; }
+.chip button:focus-visible { outline: 2px solid var(--accent); }
+.sector { font-size: 11.5px; color: var(--muted); }
+svg rect.bar-hit { cursor: pointer; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.count { font-variant-numeric: tabular-nums; font-size: 14px; }
+.count b { font-family: var(--display); font-stretch: 85%; font-size: 18px; }
+button { font: inherit; font-size: 13.5px; color: var(--ink); background: var(--chip); border: 1px solid var(--rule); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+button:disabled { opacity: .45; cursor: default; }
+.pager { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; min-width: 880px; font-size: 13.5px; }
+th { position: sticky; top: 0; background: var(--panel); text-align: left; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 9px 10px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tbody tr { cursor: pointer; }
+tbody tr:hover td { background: color-mix(in srgb, var(--chip) 55%, transparent); }
+td.num, td.mono { font-family: var(--mono); font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.co { font-weight: 600; }
+.sub { color: var(--muted); font-size: 12.5px; }
+.pill { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 1px 7px; border-radius: 10px; white-space: nowrap; border: 1px solid transparent; }
+.pill.a { background: var(--chip); color: var(--accent); }
+.pill.b { background: color-mix(in srgb, var(--b-green) 16%, transparent); color: var(--b-green); }
+.pill.no { color: var(--stamp); border-color: color-mix(in srgb, var(--stamp) 55%, transparent); }
+.pill.memo { color: var(--b-green); border-color: color-mix(in srgb, var(--b-green) 55%, transparent); }
+.pill.name { color: var(--muted); border-color: var(--rule); }
+tr.detail td { background: var(--bg); cursor: default; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 3px 14px; margin: 0; font-size: 13px; }
+dt { color: var(--muted); }
+dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.status { padding: 18px; color: var(--muted); }
+footer { font-size: 12.5px; color: var(--muted); display: grid; gap: 6px; max-width: 86ch; }
+a { color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) { tbody tr td { transition: background .12s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">DPIIT · Industrial Entrepreneurs' Memoranda · 2001–2024</div>
+    <h1>IEM Register Search</h1>
+    <p class="lede">Every company line in DPIIT's monthly IEM lists: Part A (memorandum filed) and Part B (commercial production started). Search by company, product or place, and see which Part A filings later reached a Part B list.</p>
+    <div class="summary" id="summary" aria-live="polite"><div><b>…</b><span>loading the register</span></div></div>
+  </header>
+
+  <section aria-labelledby="h-cohort">
+    <h2 id="h-cohort">Did the filings reach production?</h2>
+    <div class="panel">
+      <div class="legend">
+        <span><i style="background:var(--b-green)"></i>Part B cites the memorandum number</span>
+        <span><i style="background:var(--b-name)"></i>Part B from the same company, name match only</span>
+        <span><i style="background:var(--rule)"></i>No Part B found</span>
+      </div>
+      <div class="chart-scroll"><svg id="cohort" role="img" aria-label="Part A memoranda by filing year, split by whether a Part B followed"></svg></div>
+      <p class="note">Click a bar to list that year's filings. Each bar is one filing year of distinct Part A memoranda. The Part B lists stop in August 2024, so the last few years have had little time to show production. Filing a Part B was required once production began, but many units never filed one, so "no Part B found" is not proof a plant was never built.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-search">
+    <h2 id="h-search">Search the lists</h2>
+    <div class="panel filters" role="search">
+      <label class="wide" for="q">Company, product or place
+        <input id="q" type="search" placeholder="e.g. ethanol, solar, Reliance, Bharuch" autocomplete="off">
+      </label>
+      <label for="part">List
+        <select id="part"><option value="">Part A and Part B</option><option value="A">Part A · filed</option><option value="B">Part B · production started</option></select>
+      </label>
+      <label for="bstatus">Part B follow-through
+        <select id="bstatus">
+          <option value="">Any</option>
+          <option value="memo">Part B cites this memorandum</option>
+          <option value="name">Part B by company name only</option>
+          <option value="found">Any Part B found</option>
+          <option value="no">No Part B found</option>
+        </select>
+      </label>
+      <label for="sector">Sector
+        <select id="sector"><option value="">All sectors</option></select>
+      </label>
+      <label for="state">State
+        <select id="state"><option value="">All states</option></select>
+      </label>
+      <label for="district">District
+        <select id="district" disabled><option value="">Pick a state first</option></select>
+      </label>
+      <label for="ptype">Proposal type
+        <select id="ptype">
+          <option value="">Any</option>
+          <option value="NU">NU · new undertaking</option>
+          <option value="SE">SE · substantial expansion</option>
+          <option value="NA">NA · new article</option>
+          <option value="CO">CO · carry on business</option>
+          <option value="GM">GM · other</option>
+        </select>
+      </label>
+      <label for="y1">From year<select id="y1"><option value="">Earliest</option></select></label>
+      <label for="y2">To year<select id="y2"><option value="">Latest</option></select></label>
+      <label for="sort">Sort by
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="az">Company A–Z</option>
+          <option value="lag">Longest wait for Part B</option>
+        </select>
+      </label>
+      <label for="per">Rows per page
+        <select id="per"><option>25</option><option selected>50</option><option>100</option><option>250</option></select>
+      </label>
+      <div class="actions"><button id="reset" type="button">Clear filters</button></div>
+    </div>
+    <div class="chips" id="chips" aria-live="polite"></div>
+    <div class="bar">
+      <div class="count" id="count"></div>
+      <div class="pager">
+        <button id="prev" type="button">Previous</button>
+        <span id="pageinfo"></span>
+        <button id="next" type="button">Next</button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>List</th><th>Date</th><th>Company</th><th>Product</th><th>Capacity</th><th>District, state</th><th>IEM no.</th><th>Part B</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="8" class="status">Loading the register…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>Source: DPIIT monthly "List of IEM Filed" (Part A) and "List of IEM Implemented" (Part B), Jan 2001 to Aug 2024, parsed by <code>tools/iem_records.py</code>. Every row keeps its DPIIT document id, so each line can be checked against the original PDF. Lines repeated across monthly and financial-year lists are counted once.</p>
+    <p>The last company-level monthly list DPIIT published covers August 2024. Since October 2025 IEM Part A, Part B and amendments are filed only on the National Single Window System (NSWS), which issues an e-signed acknowledgement. No newer company-level list is posted on DPIIT's IEM page, so this register ends with the last published list. Sectors are assigned from words in the product description and are approximate.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var page = 0, D = null, N = 0, hits = [], open = -1, years = [], hay = null, sectors = [], lagv = [];
+  var SECTORS = [
+    ["Ethanol and distilleries", /ethanol|alcohol|distill|spirit|\bena\b|rectified/],
+    ["Sugar", /sugar|molasses|bagasse|jaggery/],
+    ["Power and renewables", /power|electric(ity)? gen|solar|wind|energy|\bmw\b|megawat|co-?generation|hydro/],
+    ["Steel and metals", /steel|iron|sponge|billet|ingot|ferro|alumin|copper|zinc|lead\b|metal|\btmt\b|pellet/],
+    ["Cement and building materials", /cement|clinker|tile|ceramic|glass|brick|gypsum|sanitary/],
+    ["Pharmaceuticals", /pharma|drug|tablet|capsule|injection|\bapi\b|formulation|intermediate|vaccine/],
+    ["Chemicals and fertilisers", /chemical|acid|fertili|urea|ammonia|chlor|caustic|soda|solvent|resin|dye|pigment|pesticide|insecticide|herbicide|polyol|peroxide/],
+    ["Textiles and apparel", /yarn|textile|fabric|spinning|spindle|cotton|garment|weaving|knit|fibre|fiber|polyester|denim|apparel/],
+    ["Food, beverages and feed", /food|\boil\b|edible|refin|rice|flour|milk|dairy|beverage|juice|biscuit|feed|starch|beer|soft drink|snack|maize|soya|bakery|meat|fish|tea\b|coffee/],
+    ["Paper and packaging", /paper|board|packag|carton|pulp|corrugat/],
+    ["Plastics and rubber", /plastic|polymer|\bpvc\b|rubber|tyre|tire|\bpet\b|film|moulded|polyethylene|polypropylene/],
+    ["Vehicles and engineering", /vehicle|automobile|auto |engine|tractor|motor|machin|equipment|bearing|forging|casting|pump|valve|compressor|gear|axle/],
+    ["Electrical and electronics", /electronic|mobile|cable|wire|transformer|battery|\bled\b|semiconductor|appliance|switchgear|solar (cell|module)/],
+    ["Mining and minerals", /mining|limestone|granite|mineral|quartz|stone|marble|coal|bauxite|ore\b/]
+  ];
+
+  function val(c, i) {
+    var v = D.data[c][i];
+    return D.lookups[c] ? D.lookups[c][v] : v;
+  }
+  function yearOf(i) {
+    var d = val("iem_date", i) || val("production_date", i) || "";
+    var m = /(\d{4})\s*$/.exec(d);
+    if (m) return +m[1];
+    var p = val("period_from", i) || "";
+    return +p.slice(0, 4) || 0;
+  }
+  function sectorOf(item) {
+    var s = item.toLowerCase();
+    for (var k = 0; k < SECTORS.length; k++) if (SECTORS[k][1].test(s)) return k;
+    return SECTORS.length;
+  }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+  function fmt(n) { return Number(n).toLocaleString("en-IN"); }
+  function opt(v, label) { return '<option value="' + esc(v) + '">' + esc(label) + "</option>"; }
+
+  function drawCohort(rows) {
+    var svg = $("cohort");
+    rows = rows.filter(function (r) { return r.filed > 0; });
+    if (!rows.length) { svg.setAttribute("height", 0); return; }
+    var W = Math.max(720, rows.length * 34 + 70), H = 260, L = 52, B = 34, T = 14;
+    var max = Math.max.apply(null, rows.map(function (r) { return r.filed; }));
+    var step = Math.pow(10, Math.floor(Math.log10(max)));
+    var tick = max / step > 5 ? step * 2 : (max / step > 2 ? step : step / 2);
+    var top = Math.ceil(max / tick) * tick;
+    var y = function (v) { return T + (H - T - B) * (1 - v / top); };
+    var bw = (W - L - 10) / rows.length;
+    var out = [];
+    for (var v = 0; v <= top; v += tick) {
+      out.push('<line x1="' + L + '" x2="' + (W - 6) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--rule)" stroke-width="1"/>');
+      out.push('<text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + "</text>");
+    }
+    rows.forEach(function (r, k) {
+      var x = L + k * bw + bw * 0.14, w = bw * 0.72;
+      var memo = +r.in_b_memo, name = +r.in_b_name_only, rest = r.filed - memo - name;
+      var y0 = y(0), y1 = y(memo), y2 = y(memo + name), y3 = y(r.filed);
+      out.push('<rect x="' + x + '" y="' + y3 + '" width="' + w + '" height="' + (y2 - y3) + '" fill="var(--rule)"/>');
+      out.push('<rect x="' + x + '" y="' + y2 + '" width="' + w + '" height="' + (y1 - y2) + '" fill="var(--b-name)"/>');
+      out.push('<rect x="' + x + '" y="' + y1 + '" width="' + w + '" height="' + (y0 - y1) + '" fill="var(--b-green)"/>');
+      out.push('<rect class="bar-hit" data-year="' + r.year + '" x="' + (L + k * bw) + '" y="' + T + '" width="' + bw + '" height="' + (H - T - B) + '" fill="transparent"><title>' + r.year + ": " + fmt(r.filed) + " filed, " + fmt(memo) + " cited by a Part B, " + fmt(name) + " name match, " + fmt(rest) + " none found</title></rect>");
+      out.push('<text x="' + (x + w / 2) + '" y="' + (y3 - 4) + '" text-anchor="middle">' + Math.round(r.pct_in_b) + "%</text>");
+      if (rows.length < 16 || k % 2 === 0 || k === rows.length - 1)
+        out.push('<text x="' + (x + w / 2) + '" y="' + (H - B + 16) + '" text-anchor="middle">' + r.year + "</text>");
+    });
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("width", W);
+    svg.setAttribute("height", H);
+    svg.innerHTML = out.join("");
+  }
+
+  function summary() {
+    var a = 0, b = 0, reached = 0, ymin = 9999, ymax = 0;
+    for (var i = 0; i < N; i++) {
+      var p = val("part", i);
+      if (p === "A") { a++; if (val("in_part_b", i) !== "no") reached++; } else b++;
+      var y = years[i]; if (y > 1990) { if (y < ymin) ymin = y; if (y > ymax) ymax = y; }
+    }
+    $("summary").innerHTML =
+      "<div><b>" + fmt(a) + "</b><span>Part A lines (memoranda filed)</span></div>" +
+      "<div><b>" + fmt(b) + "</b><span>Part B lines (production started)</span></div>" +
+      "<div><b>" + (a ? Math.round(100 * reached / a) : 0) + "%</b><span>of Part A lines with a Part B found</span></div>" +
+      "<div><b>" + ymin + "–" + ymax + "</b><span>years covered</span></div>";
+    return [ymin, ymax];
+  }
+
+  function fillDistricts() {
+    var st = $("state").value, sel = $("district");
+    if (!st) { sel.innerHTML = opt("", "Pick a state first"); sel.disabled = true; return; }
+    var seen = {};
+    for (var i = 0; i < N; i++) if (val("state", i) === st) { var d = val("district", i); if (d) seen[d] = (seen[d] || 0) + 1; }
+    var ds = Object.keys(seen).sort();
+    sel.innerHTML = opt("", "All districts (" + ds.length + ")") + ds.map(function (d) { return opt(d, d + " · " + fmt(seen[d])); }).join("");
+    sel.disabled = false;
+  }
+
+  function filters() {
+    return {
+      q: $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean),
+      part: $("part").value, b: $("bstatus").value, sector: $("sector").value,
+      st: $("state").value, dist: $("district").value, pt: $("ptype").value,
+      y1: +$("y1").value || 0, y2: +$("y2").value || 9999
+    };
+  }
+
+  function run() {
+    var f = filters();
+    var sec = f.sector === "" ? -1 : +f.sector;
+    hits = [];
+    for (var i = 0; i < N; i++) {
+      var p = val("part", i);
+      if (f.part && p !== f.part) continue;
+      if (f.b) {
+        if (p !== "A") continue;
+        var s = val("in_part_b", i);
+        if (f.b === "found" ? s === "no" : s !== f.b) continue;
+      }
+      if (sec >= 0 && sectors[i] !== sec) continue;
+      if (f.st && val("state", i) !== f.st) continue;
+      if (f.dist && val("district", i) !== f.dist) continue;
+      if (f.pt && val("proposal_type", i) !== f.pt) continue;
+      var y = years[i];
+      if (y < f.y1 || y > f.y2) continue;
+      if (f.q.length) {
+        var h = hay[i], ok = true;
+        for (var k = 0; k < f.q.length; k++) if (h.indexOf(f.q[k]) < 0) { ok = false; break; }
+        if (!ok) continue;
+      }
+      hits.push(i);
+    }
+    var sort = $("sort").value;
+    if (sort === "old") hits.sort(function (x, z) { return years[x] - years[z] || x - z; });
+    else if (sort === "az") hits.sort(function (x, z) { return val("company", x).localeCompare(val("company", z)); });
+    else if (sort === "lag") hits.sort(function (x, z) { return (lagv[z] || -1) - (lagv[x] || -1) || years[z] - years[x]; });
+    else hits.sort(function (x, z) { return years[z] - years[x] || z - x; });
+    page = 0; open = -1;
+    chips(f);
+    render();
+  }
+
+  function chips(f) {
+    var list = [];
+    function add(id, label) { list.push('<span class="chip">' + esc(label) + '<button type="button" data-clear="' + id + '" aria-label="Remove filter: ' + esc(label) + '">×</button></span>'); }
+    if (f.q.length) add("q", "“" + $("q").value.trim() + "”");
+    ["part", "bstatus", "sector", "state", "district", "ptype", "y1", "y2"].forEach(function (id) {
+      var el = $(id);
+      if (el.value) add(id, el.options[el.selectedIndex].text);
+    });
+    $("chips").innerHTML = list.join("");
+  }
+
+  function bCell(i) {
+    if (val("part", i) === "B") return '<span class="sub">' + esc(val("production_date", i)) + "</span>";
+    var s = val("in_part_b", i), lag = val("lag_years", i);
+    var after = lag ? " · " + lag + " yrs" : "";
+    if (s === "memo") return '<span class="pill memo">yes' + esc(after) + "</span>";
+    if (s === "name") return '<span class="pill name">name match' + esc(after) + "</span>";
+    return '<span class="pill no">none found</span>';
+  }
+
+  function detail(i) {
+    var f = [["Location", "location"], ["IEM / ack. no.", "iem_no"], ["Date", "iem_date"], ["Memorandum cited", "memo_no"],
+      ["Memorandum date", "memo_date"], ["Production commenced", "production_date"], ["Proposal type", "proposal_type"],
+      ["Part B production date", "b_production_date"], ["Years from filing to Part B", "lag_years"],
+      ["DPIIT document id", "doc_id"], ["List month", "period_from"]];
+    var rows = f.map(function (p) { var v = val(p[1], i); return v ? "<dt>" + p[0] + "</dt><dd>" + esc(v) + "</dd>" : ""; }).join("");
+    rows += "<dt>Sector (from product words)</dt><dd>" + esc(sectors[i] < SECTORS.length ? SECTORS[sectors[i]][0] : "Other") + "</dd>";
+    return '<tr class="detail"><td colspan="8"><dl>' + rows + "</dl></td></tr>";
+  }
+
+  function render() {
+    var per = +$("per").value || 50;
+    var n = hits.length, pages = Math.max(1, Math.ceil(n / per));
+    $("count").innerHTML = "<b>" + fmt(n) + "</b> matching lines";
+    $("pageinfo").textContent = "Page " + (page + 1) + " of " + fmt(pages);
+    $("prev").disabled = page === 0; $("next").disabled = page >= pages - 1;
+    if (!n) { $("rows").innerHTML = '<tr><td colspan="8" class="status">No lines match. Remove a filter or widen the year range.</td></tr>'; return; }
+    var html = [];
+    hits.slice(page * per, page * per + per).forEach(function (i) {
+      var p = val("part", i), cap = val("capacity", i);
+      html.push('<tr tabindex="0" data-i="' + i + '">' +
+        '<td><span class="pill ' + (p === "A" ? "a" : "b") + '">' + (p === "A" ? "Part A" : "Part B") + "</span></td>" +
+        '<td class="mono">' + esc(val("iem_date", i) || val("production_date", i) || val("period_from", i)) + "</td>" +
+        '<td class="co">' + esc(val("company", i)) + "</td>" +
+        "<td>" + esc(val("item", i)) + (sectors[i] < SECTORS.length ? '<div class="sector">' + esc(SECTORS[sectors[i]][0]) + "</div>" : "") + "</td>" +
+        '<td class="num">' + esc(cap) + (cap ? " " : "") + '<span class="sub">' + esc(val("unit", i)) + "</span></td>" +
+        "<td>" + esc(val("district", i)) + '<div class="sub">' + esc(val("state", i)) + "</div></td>" +
+        '<td class="mono">' + esc(val("iem_no", i) || val("memo_no", i)) + "</td>" +
+        "<td>" + bCell(i) + "</td></tr>" + (open === i ? detail(i) : ""));
+    });
+    $("rows").innerHTML = html.join("");
+  }
+
+  function toggle(tr) {
+    if (!tr || !tr.dataset.i) return;
+    var i = +tr.dataset.i; open = open === i ? -1 : i; render();
+  }
+  $("rows").addEventListener("click", function (e) { toggle(e.target.closest("tr")); });
+  $("rows").addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(e.target.closest("tr")); } });
+  $("prev").addEventListener("click", function () { if (page > 0) { page--; open = -1; render(); } });
+  $("next").addEventListener("click", function () { page++; open = -1; render(); });
+  $("per").addEventListener("change", function () { page = 0; render(); });
+  var t = null;
+  $("q").addEventListener("input", function () { clearTimeout(t); t = setTimeout(run, 180); });
+  ["part", "bstatus", "sector", "district", "ptype", "y1", "y2", "sort"].forEach(function (id) { $(id).addEventListener("change", run); });
+  $("state").addEventListener("change", function () { fillDistricts(); run(); });
+  $("bstatus").addEventListener("change", function () { if ($("bstatus").value && $("part").value === "B") $("part").value = ""; });
+  $("reset").addEventListener("click", function () {
+    ["q", "part", "bstatus", "sector", "state", "ptype", "y1", "y2"].forEach(function (id) { $(id).value = ""; });
+    $("sort").value = "new"; fillDistricts(); run();
+  });
+  $("chips").addEventListener("click", function (e) {
+    var id = e.target.getAttribute("data-clear");
+    if (!id) return;
+    $(id).value = "";
+    if (id === "state") fillDistricts();
+    run();
+  });
+  $("cohort").addEventListener("click", function (e) {
+    var y = e.target.getAttribute && e.target.getAttribute("data-year");
+    if (!y) return;
+    $("part").value = "A"; $("y1").value = y; $("y2").value = y; run();
+    $("h-search").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  fetch("iem_web.json").then(function (r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }).then(function (d) {
+    D = d; N = d.n; years = new Array(N); hay = new Array(N); sectors = new Array(N); lagv = new Array(N);
+    var secCount = new Array(SECTORS.length + 1).fill(0);
+    for (var i = 0; i < N; i++) {
+      years[i] = yearOf(i);
+      var item = val("item", i) || "";
+      sectors[i] = sectorOf(item); secCount[sectors[i]]++;
+      lagv[i] = parseFloat(val("lag_years", i)) || 0;
+      hay[i] = [val("company", i), item, val("district", i), val("state", i), val("location", i), val("iem_no", i)].join(" ").toLowerCase();
+    }
+    var states = (d.lookups.state || []).filter(Boolean).sort();
+    $("state").insertAdjacentHTML("beforeend", states.map(function (s) { return opt(s, s); }).join(""));
+    $("sector").insertAdjacentHTML("beforeend", SECTORS.map(function (s, k) { return opt(k, s[0] + " · " + fmt(secCount[k])); }).join("") +
+      opt(SECTORS.length, "Other · " + fmt(secCount[SECTORS.length])));
+    var span = summary(), ys = [];
+    for (var y = span[1]; y >= span[0]; y--) ys.push(opt(y, y));
+    $("y1").insertAdjacentHTML("beforeend", ys.slice().reverse().join(""));
+    $("y2").insertAdjacentHTML("beforeend", ys.join(""));
+    drawCohort(d.cohort || []);
+    run();
+  }).catch(function () {
+    $("summary").innerHTML = "<div><b>—</b><span>data file not found</span></div>";
+    $("rows").innerHTML = '<tr><td colspan="8" class="status">The register data (iem_web.json) did not load. If you opened this file directly from disk, serve the folder instead: run <code>python3 -m http.server</code> in data/iem and open http://localhost:8000.</td></tr>';
+  });
+})();
+</script>
+
+</body>
+</html>
