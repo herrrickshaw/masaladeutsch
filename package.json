@@ -1,0 +1,11 @@
+{
+  "name": "masaladeutsch",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Entry page and site-wide post widget (accordion.js) for masaladeutsch.blogspot.com",
+  "scripts": {
+    "check": "node --check accordion.js",
+    "test": "node --check accordion.js && node --test"
+  },
+  "license": "UNLICENSED"
+}
