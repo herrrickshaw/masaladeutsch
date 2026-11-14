@@ -1,4 +1,4 @@
-/* VertiStrat Insights (formerly Masala Deutsch) — site index, injected at the foot of every post.
+/* VertiStrat Solutions — site index, injected at the foot of every post.
    Discovers the label list from the blog's own feed and fills each topic on
    first open, so it can never go stale and never needs a post edit to update.
    Served from GitHub Pages so changing this ONE file changes every page. */
@@ -274,7 +274,7 @@
       var crumbs = {
         '@context': 'https://schema.org', '@type': 'BreadcrumbList',
         'itemListElement': [
-          { '@type': 'ListItem', 'position': 1, 'name': 'VertiStrat Insights', 'item': BASE + '/' },
+          { '@type': 'ListItem', 'position': 1, 'name': 'VertiStrat Solutions', 'item': BASE + '/' },
           { '@type': 'ListItem', 'position': 2, 'name': 'All Articles (Index)',
             'item': BASE + '/2026/08/article-index-start-here.html' },
           { '@type': 'ListItem', 'position': 3, 'name': pageTitle || document.title, 'item': location.href }

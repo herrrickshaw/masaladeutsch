@@ -1,4 +1,4 @@
-# How to use masaladeutsch with an AI assistant
+# How to use VertiStrat Solutions with an AI assistant
 
 Entry page for blog.vertistratsolution.com — India's trade, energy and industrial policy, checked against the data
 
