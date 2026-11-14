@@ -1,4 +1,4 @@
-/* Masala Deutsch — site index, injected at the foot of every post.
+/* VertiStrat Insights (formerly Masala Deutsch) — site index, injected at the foot of every post.
    Discovers the label list from the blog's own feed and fills each topic on
    first open, so it can never go stale and never needs a post edit to update.
    Served from GitHub Pages so changing this ONE file changes every page. */
@@ -247,7 +247,7 @@
      Renders only on the blog itself: the theme already loads adsbygoogle.js
      there, and the github.io mirror is not an approved AdSense site. */
   var AD_SLOT = '';
-  if (AD_SLOT && /\.blogspot\.com$/.test(location.hostname)) {
+  if (AD_SLOT && /(\.blogspot\.com|vertistratsolution\.com)$/.test(location.hostname)) {
     try {
       var ins = document.createElement('ins');
       ins.className = 'adsbygoogle';
@@ -261,7 +261,7 @@
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) { /* an ad failure must never break the index */ }
   }
-  var BASE = 'https://masaladeutsch.blogspot.com', n = 0;
+  var BASE = 'https://blog.vertistratsolution.com', n = 0;
 
   /* ---- BreadcrumbList JSON-LD, synchronous, no network round-trip -------
      Blogger's own auto-schema covers BlogPosting/WebSite/Person but never
@@ -270,11 +270,11 @@
      Home -> All Articles index -> this post's own title. */
   try {
     if (location.pathname !== '/2026/08/article-index-start-here.html') {
-      var pageTitle = (document.title || '').replace(/\s*[–—-]\s*Masala Deutsch\s*$/i, '').trim();
+      var pageTitle = (document.title || '').replace(/\s*[–—-]\s*(?:Masala Deutsch|Vertistrat Solutions|VertiStrat Insights)\s*$/i, '').trim();
       var crumbs = {
         '@context': 'https://schema.org', '@type': 'BreadcrumbList',
         'itemListElement': [
-          { '@type': 'ListItem', 'position': 1, 'name': 'Masala Deutsch', 'item': BASE + '/' },
+          { '@type': 'ListItem', 'position': 1, 'name': 'VertiStrat Insights', 'item': BASE + '/' },
           { '@type': 'ListItem', 'position': 2, 'name': 'All Articles (Index)',
             'item': BASE + '/2026/08/article-index-start-here.html' },
           { '@type': 'ListItem', 'position': 3, 'name': pageTitle || document.title, 'item': location.href }

@@ -1,6 +1,6 @@
 # How to use masaladeutsch with an AI assistant
 
-Entry page for masaladeutsch.blogspot.com — India's trade, energy and industrial policy, checked against the data
+Entry page for blog.vertistratsolution.com — India's trade, energy and industrial policy, checked against the data
 
 You don't need to be a programmer to use this repository. Get the code,
 hand it to an AI assistant (Claude, Gemini, ChatGPT, ...), and ask in plain
